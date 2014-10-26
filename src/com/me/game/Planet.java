@@ -1,10 +1,12 @@
 package com.me.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.gui.PlanetScreen;
+import com.me.renderers.Renderer;
 import com.me.screens.GameScreen;
 
 public class Planet {
@@ -120,5 +122,16 @@ public class Planet {
 	
 	public void update() {
 		populationGrowth();
+		realY = (int) (planetSprite.getY() * 2);
+		if(this.planetSprite.getBoundingRectangle().contains(Gdx.input.getX() - 840 - (GameScreen.getScreenX() * -1), Gdx.input.getY() - (510 - planetSprite.getWidth()) - GameScreen.getScreenY() + realY)) {
+			planetSprite.setColor(1, 1, 1, 0.5f);
+			if(Gdx.input.justTouched()) {
+				Renderer.getGUIRenderer().getPlanetScreen().setPlanet(this);
+				Renderer.getGUIRenderer().getPlanetScreen().setIsActive(true);
+			}
+		}
+		else {
+			planetSprite.setColor(1, 1, 1, 1);
+		}
 	}
 }

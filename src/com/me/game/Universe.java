@@ -74,15 +74,20 @@ public class Universe {
 	
 	public Planet getRandomPlanet() {
 		Planet tmpPlanet = null;
-		int tmp = 0;
+		int tmp = -1;
 		while (tmpPlanet == null) {
-			Galaxy tmpGalaxy = this.galaxies.get(RandomInt.newRandom(galaxies.size() - 1));
-			StarSystem tmpSystem = tmpGalaxy.getStarSystems().get(RandomInt.newRandom(tmpGalaxy.getStarSystems().size() - 1));
+			Galaxy tmpGalaxy = this.galaxies.get(RandomInt.newRandomWithinRange(0, galaxies.size() - 1));
+			StarSystem tmpSystem = tmpGalaxy.getStarSystems().get(RandomInt.newRandomWithinRange(0, tmpGalaxy.getStarSystems().size() - 1));
 			if(tmpSystem.getPlanets() != null) {
-				while(tmp < 0) {
-					tmp = RandomInt.newRandom(tmpSystem.getPlanets().size() - 1);
+				if(tmpSystem.getPlanets().size() > 1) {
+					while(tmp < 0) {
+						tmp = RandomInt.newRandomWithinRange(0, tmpSystem.getPlanets().size() - 1);
+					}
+					tmpPlanet = tmpSystem.getPlanets().get(tmp);
 				}
-				tmpPlanet = tmpSystem.getPlanets().get(tmp);
+				else {
+					tmpPlanet = tmpSystem.getPlanets().get(0);
+				}
 			}
 		}
 		return tmpPlanet;

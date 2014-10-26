@@ -16,42 +16,6 @@ public class DebugOverlay {
 	int tick, framesPast = 0, tickLength = 120, turns; //tick is the game tick, tick length will be used to allow faster or slower game speeds, turn is amount of turns past
 	float elapsedTime = 0;
 	
-	public String getMouseX() {
-		return mouseX;
-	}
-	public void setMouseX(String mouseX) {
-		this.mouseX = mouseX;
-	}
-	public String getMouseY() {
-		return mouseY;
-	}
-	public void setMouseY(String mouseY) {
-		this.mouseY = mouseY;
-	}
-	public String getScreenX() {
-		return screenX;
-	}
-	public void setScreenX(String screenX) {
-		this.screenX = screenX;
-	}
-	public String getScreenY() {
-		return screenY;
-	}
-	public void setScreenY(String screenY) {
-		this.screenY = screenY;
-	}
-	public boolean isActive() {
-		return isActive;
-	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-	public float getElapsedTime() {
-		return this.elapsedTime;
-	}
-	public int getFramesPast() {
-		return this.framesPast;
-	}
 	public void show() {
 		batch = new SpriteBatch();
 		mouseXLabel = new BitmapFont();
@@ -117,5 +81,42 @@ public class DebugOverlay {
 		screenY = "Screen Y-coordinate: " + GameScreen.getScreenY();
 		gameTurn = "Game turn: " + turns + " Tick: " + tick;
 		FPS = "FPS: " + Gdx.graphics.getFramesPerSecond();
+	}
+	
+	public String getMouseX() {
+		return mouseX;
+	}
+	public void setMouseX(String mouseX) {
+		this.mouseX = mouseX;
+	}
+	public String getMouseY() {
+		return mouseY;
+	}
+	public void setMouseY(String mouseY) {
+		this.mouseY = mouseY;
+	}
+	public String getScreenX() {
+		return screenX;
+	}
+	public void setScreenX(String screenX) {
+		this.screenX = screenX;
+	}
+	public String getScreenY() {
+		return screenY;
+	}
+	public void setScreenY(String screenY) {
+		this.screenY = screenY;
+	}
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	public float getElapsedTime() {
+		return this.elapsedTime;
+	}
+	public int getFramesPast() {
+		return this.framesPast;
 	}
 }

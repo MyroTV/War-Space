@@ -16,10 +16,11 @@ public class PlayersHandler {
 	
 	public void generatePlayers(int numberOfPlayers) {
 		for(int i = 0; i < numberOfPlayers; i++) {
-			playersList.add(new Player(new Race(), true, GameScreen.getUniverseRenderer().getUniverse().getRandomPlanet()));
+			playersList.add(new Player(new Race(), true, GameScreen.getRenderer().getUniverseRenderer().getUniverse().getRandomPlanet()));
 			humanPlayer = playersList.get(i);
 			humanPlayer.getCapitalPlanet().setPlanetOwner(humanPlayer);
 			humanPlayer.setColor(Color.GREEN);
+			System.out.print("Player Capital generated in: " + humanPlayer.getCapitalPlanet().getParentStar().getSystemName() + ", " + humanPlayer.getCapitalPlanet().getParentStar().getParentGalaxy().getGalaxyName());
 		}
 	}
 	

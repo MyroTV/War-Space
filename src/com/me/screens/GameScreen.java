@@ -1,19 +1,14 @@
 package com.me.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.me.game.Planet;
-import com.me.game.PlanetType;
 import com.me.game.PlayersHandler;
-import com.me.game.Universe;
 import com.me.gdxtestgame.MyGame;
-import com.me.gui.DebugOverlay;
-import com.me.renderers.UniverseRenderer;
+import com.me.renderers.Renderer;
 
 public class GameScreen implements Screen{
 
@@ -22,8 +17,7 @@ public class GameScreen implements Screen{
 	private static int screenY;
 	private SpriteBatch batch;
 	private static OrthographicCamera camera;
-	private static DebugOverlay dbOverlay;
-	private static UniverseRenderer universeRenderer;
+	private static Renderer renderer;
 	private PlayersHandler playerHandler;
 	
 	public GameScreen(MyGame game) {
@@ -36,10 +30,6 @@ public class GameScreen implements Screen{
 	
 	public static int getScreenX() {
 		return screenX;
-	}
-	
-	public static UniverseRenderer getUniverseRenderer() {
-		return universeRenderer;
 	}
 
 	public static void setScreenX(int screenX) {
@@ -54,82 +44,69 @@ public class GameScreen implements Screen{
 		GameScreen.screenY = screenY;
 	}
 	
-	public static DebugOverlay getDebugOverlay() {
-		return GameScreen.dbOverlay;
+	public static Renderer getRenderer() {
+		return renderer;
 	}
-	
 
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
 		this.update();
+		
 		batch.begin();
-		universeRenderer.render();
-		dbOverlay.render();
+		
+			renderer.render();
+			
 		batch.end();
 	}
 
-	@Override
 	public void resize(int width, int height) {
-
 		
 	}
 	
 	public void update() {
 		if(Gdx.input.isKeyPressed(Keys.W)) {
-			camera.translate(0, 5);
+			camera.translate(0, 8);
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)) {
-			camera.translate(-5, 0);
+			camera.translate(-8, 0);
 		}
 		if(Gdx.input.isKeyPressed(Keys.S)) {
-			camera.translate(0, -5);
+			camera.translate(0, -8);
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)) {
-			camera.translate(5, 0);
+			camera.translate(8, 0);
 		}
 		camera.update();
-		dbOverlay.update();
-		universeRenderer.update();
+		renderer.update();
 		GameScreen.setScreenX((int) camera.position.x);
 		GameScreen.setScreenY((int) camera.position.y);
 	}
 
-	@Override
 	public void show() {
-		universeRenderer = new UniverseRenderer();
-		universeRenderer.show();
-		dbOverlay = new DebugOverlay();
-		dbOverlay.show();
+		renderer = new Renderer();
+		renderer.show();
 		camera = new OrthographicCamera(1680, 1020);
 		batch = new SpriteBatch();
 		playerHandler = new PlayersHandler(1);
 		playerHandler.show();
 	}
 
-	@Override
 	public void hide() {
-
 		
 	}
 
-	@Override
 	public void pause() {
 
-		
 	}
 
-	@Override
 	public void resume() {
 
-		
 	}
 
-	@Override
 	public void dispose() {
 
-		
 	}
 
 }

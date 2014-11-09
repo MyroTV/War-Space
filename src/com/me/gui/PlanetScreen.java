@@ -6,11 +6,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.game.Planet;
 import com.me.interfaces.GUIElement;
+import com.me.renderers.GUIRenderer;
+import com.me.screens.GameScreen;
 
 public class PlanetScreen implements GUIElement {
 	private Texture planetScreenTexture;
 	private Sprite planetScreenSprite;
+	
 	private BitmapFont planetNameLabel;
+	private BitmapFont planetPopulationLabel;
 	
 	private ExitButton exitButton;
 	
@@ -46,6 +50,7 @@ public class PlanetScreen implements GUIElement {
 	public void show() {
 		batch = new SpriteBatch();
 		planetNameLabel = new BitmapFont();
+		planetPopulationLabel = new BitmapFont();
 		planetScreenTexture  = new Texture("assets/planetScreenTemp.png");
 		planetScreenSprite = new Sprite(planetScreenTexture);
 		exitButton = new ExitButton((int)planetScreenSprite.getWidth() - 20, (int)planetScreenSprite.getHeight() - 20);
@@ -54,11 +59,13 @@ public class PlanetScreen implements GUIElement {
 	}
 	
 	public void render() {
+		batch.setProjectionMatrix(GUIRenderer.getGraphicsCamera().combined);
 		batch.begin();
-		
 		if(planetScreenSprite != null) {
 			planetScreenSprite.draw(batch);
 			planetNameLabel.draw(batch, planet.getPlanetName(), 10, planetScreenSprite.getHeight());
+			planetPopulationLabel.draw(batch, "Population: " + planet.getPopulation(), 70, planetScreenSprite.getHeight() - 20);
+			planetSprite.draw(batch);
 		}
 		
 		batch.end();
@@ -85,6 +92,9 @@ public class PlanetScreen implements GUIElement {
 	
 	public void setPlanet(Planet planet) {
 		this.planet = planet;
+		setPlanetTexture();
+		setPlanetSprite();
+		planetSprite.setPosition(12, (int)planetScreenSprite.getHeight() - 62);
 	}
 	
 	public void setIsActive(boolean isActive) {

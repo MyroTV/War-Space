@@ -132,7 +132,6 @@ public class StarSystem {
 			//starSprite.setY((float) Math.cos(GameScreen.getDebugOverlay().getElapsedTime() / 25) * 100);
 		}
 		if(this.getFocus() == true) {
-			//this.starSprite.setPosition(0, 0);
 			this.starSprite.draw(batch);
 			starSystemLabel.draw(batch, systemName, starSprite.getX(), starSprite.getY());
 		}
@@ -147,7 +146,7 @@ public class StarSystem {
 		for(int i = 0; i < planets.size(); i++) {
 			planets.get(i).update();
 		}
-		if(this.starSprite.getBoundingRectangle().contains(Gdx.input.getX() - 840 - (GameScreen.getScreenX() * -1), Gdx.input.getY() - (510 - starSprite.getWidth()) - GameScreen.getScreenY() + realY)) {
+		if(this.starSprite.getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - starSprite.getWidth()) - GameScreen.getScreenY() + realY)) {
 			this.starSprite.setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched() && parentGalaxy.getFocus() == true) {
 				System.out.print(this.systemName + " clicked");

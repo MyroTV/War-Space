@@ -162,7 +162,7 @@ public class Galaxy {
 			getActiveStarSystem().update();
 		}
 		
-		if(this.galaxySprite.getBoundingRectangle().contains(Gdx.input.getX() - 840 - (GameScreen.getScreenX() * -1), Gdx.input.getY() - (510 - galaxySprite.getWidth()) - GameScreen.getScreenY() + realY)) {
+		if(this.galaxySprite.getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - galaxySprite.getWidth()) - GameScreen.getScreenY() + realY)) {
 			this.galaxySprite.setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched() && parentUniverse.getFocus() == true) {
 				System.out.print(this.galaxyName + " clicked\n");

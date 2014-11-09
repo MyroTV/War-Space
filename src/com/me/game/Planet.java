@@ -97,8 +97,16 @@ public class Planet {
 		this.planetOwner = planetOwner;
 	}
 
+	public int getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(int population) {
+		this.population = population;
+	}
+
 	public void populationGrowth() {
-		
+		population++;
 	}
 
 	public void show() {
@@ -115,6 +123,7 @@ public class Planet {
 			if(this.planetOwner != null) {
 				planetLabel.setColor(this.planetOwner.getColor());
 			}
+			
 			planetLabel.draw(batch, planetName, planetSprite.getX(), planetSprite.getY());
 		}
 		batch.end();
@@ -123,9 +132,10 @@ public class Planet {
 	public void update() {
 		populationGrowth();
 		realY = (int) (planetSprite.getY() * 2);
-		if(this.planetSprite.getBoundingRectangle().contains(Gdx.input.getX() - 840 - (GameScreen.getScreenX() * -1), Gdx.input.getY() - (510 - planetSprite.getWidth()) - GameScreen.getScreenY() + realY)) {
+		if(this.planetSprite.getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - planetSprite.getWidth()) - GameScreen.getScreenY() + realY) && parentStar.getFocus() == true) {
 			planetSprite.setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched()) {
+				lookAt();
 				Renderer.getGUIRenderer().getPlanetScreen().setPlanet(this);
 				Renderer.getGUIRenderer().getPlanetScreen().setIsActive(true);
 			}
@@ -133,5 +143,10 @@ public class Planet {
 		else {
 			planetSprite.setColor(1, 1, 1, 1);
 		}
+	}
+	
+	public void lookAt() {
+		//GameScreen.getCamera().translate(GameScreen.getScreenX() * -1 + realX, GameScreen.getScreenY() * -1 + realY);
+
 	}
 }

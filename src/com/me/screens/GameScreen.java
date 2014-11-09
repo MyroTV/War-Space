@@ -66,6 +66,14 @@ public class GameScreen implements Screen{
 	}
 	
 	public void update() {
+		if(camera.viewportWidth != Gdx.graphics.getWidth()) {
+			camera.viewportWidth = Gdx.graphics.getWidth();
+		}
+		
+		if(camera.viewportHeight != Gdx.graphics.getHeight()) {
+			camera.viewportHeight = Gdx.graphics.getHeight();
+		}
+		
 		if(Gdx.input.isKeyPressed(Keys.W)) {
 			camera.translate(0, 8);
 		}

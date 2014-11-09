@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.me.renderers.GUIRenderer;
 import com.me.screens.GameScreen;
 
 public class ExitButton extends Button {
@@ -30,6 +31,7 @@ public class ExitButton extends Button {
 	}
 
 	public void render() {
+		batch.setProjectionMatrix(GUIRenderer.getGraphicsCamera().combined);
 		batch.begin();
 		
 		exitButtonSprite.draw(batch);
@@ -39,7 +41,7 @@ public class ExitButton extends Button {
 
 	public void update() {
 		posY = (int) (exitButtonSprite.getY() * 2);
-		if(this.exitButtonSprite.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.input.getY() - 510 + 60)) {
+		if(this.exitButtonSprite.getBoundingRectangle().contains((Gdx.input.getX() - (Gdx.graphics.getWidth() / 2)), Math.abs(Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2))))) {
 			exitButtonSprite.setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched()) {
 				parentPlanetScreen.close();

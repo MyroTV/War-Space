@@ -12,7 +12,11 @@ public class ScrollPaneElement implements GUIElement {
 	private SpriteBatch batch;
 	
 	public ScrollPaneElement(int x, int y, int sizeX, int sizeY, ScrollPane parentScrollPane) {
-		
+		this.x = x;
+		this.y = y;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.parentScrollPane = parentScrollPane;
 	}
 	
 	public void setPaneText(String structureName) {
@@ -30,6 +34,7 @@ public class ScrollPaneElement implements GUIElement {
 	public void render() {
 		batch.begin();		
 		structureNameLabel.draw(batch, structureNameText, x, y);
+		batch.end();
 	}
 	
 }

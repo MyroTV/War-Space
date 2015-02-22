@@ -66,13 +66,12 @@ public class PlanetScreen implements GUIElement {
 			planetNameLabel.draw(batch, planet.getPlanetName(), 10, planetScreenSprite.getHeight());
 			planetPopulationLabel.draw(batch, "Population: " + planet.getPopulation(), 70, planetScreenSprite.getHeight() - 20);
 			planetSprite.draw(batch);
-			if(buildingScrollPane != null) {
-				buildingScrollPane.render();
-			}
 		}
 		
 		batch.end();
-		
+		if(buildingScrollPane != null) {
+			buildingScrollPane.render();
+		}
 		exitButton.render();
 	}
 	

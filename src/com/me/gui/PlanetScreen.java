@@ -18,7 +18,7 @@ public class PlanetScreen implements GUIElement {
 	
 	private ExitButton exitButton;
 	
-	private ScrollPane scrollPane;
+	private ScrollPane buildingScrollPane;
 	
 	private Planet planet;
 	private Texture planetTexture;
@@ -53,7 +53,7 @@ public class PlanetScreen implements GUIElement {
 		planetPopulationLabel = new BitmapFont();
 		planetScreenTexture  = new Texture("assets/planetScreenTemp.png");
 		planetScreenSprite = new Sprite(planetScreenTexture);
-		exitButton = new ExitButton((int)planetScreenSprite.getWidth() - 20, (int)planetScreenSprite.getHeight() - 20);
+		exitButton = new ExitButton((int)planetScreenSprite.getWidth() - 20, (int)planetScreenSprite.getHeight());
 		exitButton.show();
 		exitButton.setParentPlanetScreen(this);
 	}
@@ -66,6 +66,9 @@ public class PlanetScreen implements GUIElement {
 			planetNameLabel.draw(batch, planet.getPlanetName(), 10, planetScreenSprite.getHeight());
 			planetPopulationLabel.draw(batch, "Population: " + planet.getPopulation(), 70, planetScreenSprite.getHeight() - 20);
 			planetSprite.draw(batch);
+			if(buildingScrollPane != null) {
+				buildingScrollPane.render();
+			}
 		}
 		
 		batch.end();
@@ -76,6 +79,9 @@ public class PlanetScreen implements GUIElement {
 	public void update() {
 		if(isActive == true) {
 			exitButton.update();
+			if(buildingScrollPane == null) {
+				buildingScrollPane = new ScrollPane(planet.getStructureList().size(), 166, 280, this);
+			}
 		}
 	}
 	
@@ -95,6 +101,10 @@ public class PlanetScreen implements GUIElement {
 		setPlanetTexture();
 		setPlanetSprite();
 		planetSprite.setPosition(12, (int)planetScreenSprite.getHeight() - 62);
+	}
+	
+	public Planet getPlanet() {
+		return this.planet;
 	}
 	
 	public void setIsActive(boolean isActive) {

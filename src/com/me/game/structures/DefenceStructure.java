@@ -1,4 +1,6 @@
-package com.me.game;
+package com.me.game.structures;
+
+import com.me.game.WeaponType;
 
 public class DefenceStructure extends Structure {
 	private String name;
@@ -39,5 +41,17 @@ public class DefenceStructure extends Structure {
 	}
 	public WeaponType getWeaponType() {
 		return weaponType;
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

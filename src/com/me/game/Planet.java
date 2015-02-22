@@ -1,10 +1,13 @@
 package com.me.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.me.game.structures.Structure;
 import com.me.gui.PlanetScreen;
 import com.me.renderers.Renderer;
 import com.me.screens.GameScreen;
@@ -24,8 +27,10 @@ public class Planet {
 	private int planetSize;
 	private int habitatSuitability;
 	private boolean habitable;
-	private Player planetOwner;
+	private Player planetOwner = null;
 	private boolean inFocus = false;
+	private boolean isCapital = false;
+	private ArrayList<Structure> structureList = new ArrayList<Structure>();
 	
 	public Planet(String planetName, PlanetType planetType) {
 		this.planetName = planetName;
@@ -105,8 +110,30 @@ public class Planet {
 		this.population = population;
 	}
 
+	public boolean isCapital() {
+		return isCapital;
+	}
+
+	public void setCapital(boolean isCapital) {
+		this.isCapital = isCapital;
+	}
+	
+	public void addStructures(ArrayList<Structure> structures) {
+		structureList.addAll(structures);
+	}
+	
+	public void addStructure(Structure structure) {
+		structureList.add(structure);
+	}
+	
+	public ArrayList<Structure> getStructureList() {
+		return this.structureList;
+	}
+
 	public void populationGrowth() {
-		population++;
+		if(planetOwner != null) {
+			
+		}
 	}
 
 	public void show() {

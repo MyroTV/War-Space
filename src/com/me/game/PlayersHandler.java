@@ -3,6 +3,8 @@ package com.me.game;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
+import com.me.game.structures.Capital;
+import com.me.game.structures.Factory;
 import com.me.screens.GameScreen;
 
 public class PlayersHandler {
@@ -19,6 +21,8 @@ public class PlayersHandler {
 			playersList.add(new Player(new Race(), true, GameScreen.getRenderer().getUniverseRenderer().getUniverse().getRandomPlanet()));
 			humanPlayer = playersList.get(i);
 			humanPlayer.getCapitalPlanet().setPlanetOwner(humanPlayer);
+			humanPlayer.getCapitalPlanet().addStructure(new Capital("Capital"));
+			humanPlayer.getCapitalPlanet().addStructure(new Factory());
 			humanPlayer.setColor(Color.GREEN);
 			System.out.print("Player Capital generated in: " + humanPlayer.getCapitalPlanet().getParentStar().getSystemName() + ", " + humanPlayer.getCapitalPlanet().getParentStar().getParentGalaxy().getGalaxyName());
 		}

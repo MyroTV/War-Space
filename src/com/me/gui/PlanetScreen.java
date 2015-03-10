@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.game.Planet;
+import com.me.game.PlanetType;
 import com.me.interfaces.GUIElement;
 import com.me.renderers.GUIRenderer;
 import com.me.screens.GameScreen;
@@ -56,6 +57,9 @@ public class PlanetScreen implements GUIElement {
 		exitButton = new ExitButton((int)planetScreenSprite.getWidth() - 20, (int)planetScreenSprite.getHeight());
 		exitButton.show();
 		exitButton.setParentPlanetScreen(this);
+		planet = new Planet("Placeholder", new PlanetType("Placeholder"));
+		buildingScrollPane = new ScrollPane(10, 166, 280, this);
+		buildingScrollPane.show();
 	}
 	
 	public void render() {

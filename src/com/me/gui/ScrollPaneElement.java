@@ -1,5 +1,6 @@
 package com.me.gui;
 
+import com.me.game.structures.Structure;
 import com.me.interfaces.GUIElement;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,13 +11,15 @@ public class ScrollPaneElement implements GUIElement {
 	private String structureNameText;
 	private BitmapFont structureNameLabel;
 	private SpriteBatch batch;
+	private Structure structure;
 	
-	public ScrollPaneElement(int x, int y, int sizeX, int sizeY, ScrollPane parentScrollPane) {
+	public ScrollPaneElement(int x, int y, int sizeX, int sizeY, ScrollPane parentScrollPane, Structure structure) {
 		this.x = x;
 		this.y = y;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.parentScrollPane = parentScrollPane;
+		this.structure = structure;
 	}
 	
 	public void setPaneText(String structureName) {
@@ -33,7 +36,7 @@ public class ScrollPaneElement implements GUIElement {
 	
 	public void render() {
 		batch.begin();		
-		structureNameLabel.draw(batch, structureNameText, x, y);
+		structureNameLabel.draw(batch, structure.getName(), x, y);
 		batch.end();
 	}
 	

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.game.Planet;
 import com.me.game.PlanetType;
+import com.me.game.structures.CapitalStructure;
 import com.me.interfaces.GUIElement;
 import com.me.renderers.GUIRenderer;
 import com.me.screens.GameScreen;
@@ -58,6 +59,7 @@ public class PlanetScreen implements GUIElement {
 		exitButton.show();
 		exitButton.setParentPlanetScreen(this);
 		planet = new Planet("Placeholder", new PlanetType("Placeholder"));
+		planet.addStructure(new CapitalStructure("capital"));
 		buildingScrollPane = new ScrollPane(10, 166, 280, this);
 		buildingScrollPane.show();
 	}

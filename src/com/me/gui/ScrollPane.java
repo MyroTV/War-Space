@@ -33,12 +33,12 @@ public class ScrollPane implements GUIElement {
 	public void render() { //only render 'displayed panes'
 		if(scrollPaneElements != null) {
 			if(scrollPaneElements.size() > 0 && scrollPaneElements.size() < maxElements) {
-				for(int i = 0; i < maxElements - 1; i++) {
+				for(int i = 0; i < maxElements; i++) {
 					displayedPanes.get(i).render();
 				}
 			}
 			else if(scrollPaneElements.size() > maxElements){
-				for(int i = 0; i < maxElements - 1; i++) {
+				for(int i = 0; i < maxElements; i++) {
 					displayedPanes.get(i).render();
 				}
 			}
@@ -46,7 +46,6 @@ public class ScrollPane implements GUIElement {
 	}
 	
 	public void generatePanes() {
-		System.out.print("got here");
 		if(parentScreen.getPlanet().getStructureList() != null) {
 			if(parentScreen.getPlanet().getStructureList().size() != 0) {
 				for(int i = 0; i < parentScreen.getPlanet().getStructureList().size(); i++) {
@@ -59,7 +58,7 @@ public class ScrollPane implements GUIElement {
 	
 	public void initialisePanes() {
 		if(scrollPaneElements != null && scrollPaneElements.size() > 0) {
-			for(int i = 0; i < scrollPaneElements.size() - 1; i++) {
+			for(int i = 0; i < scrollPaneElements.size(); i++) {
 				 scrollPaneElements.get(i).show();
 			}
 		}
@@ -94,7 +93,12 @@ public class ScrollPane implements GUIElement {
 		if(displayedPanes != null) {
 			if(displayedPanes.size() > 0) {
 				displayedPanes.removeAll(displayedPanes);
-				for(int i = startingElement; i < maxElements - 1; i++) {
+				for(int i = startingElement; i < maxElements; i++) {
+					displayedPanes.add(scrollPaneElements.get(i));
+				}
+			}
+			else {
+				for(int i = startingElement; i < maxElements; i++) {
 					displayedPanes.add(scrollPaneElements.get(i));
 				}
 			}

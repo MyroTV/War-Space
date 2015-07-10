@@ -15,7 +15,6 @@ import com.me.screens.GameScreen;
 public class Planet {
 	
 	private String planetName;
-	private Texture planetTexture;
 	private Sprite planetSprite;
 	private SpriteBatch batch;
 	private BitmapFont planetLabel;
@@ -28,14 +27,14 @@ public class Planet {
 	private int habitatSuitability;
 	private boolean habitable;
 	private Player planetOwner = null;
-	private boolean inFocus = false;
+	private boolean focus = false;
 	private boolean isCapital = false;
+	private boolean graphicsInitialised = false;
 	private ArrayList<Structure> structureList = new ArrayList<Structure>();
 	
 	public Planet(String planetName, PlanetType planetType) {
 		this.planetName = planetName;
 		this.planetType = planetType;
-		this.planetTexture = planetType.getPlanetTypeTexture();
 	}
 	
 	public String getPlanetName() {
@@ -137,9 +136,7 @@ public class Planet {
 	}
 
 	public void show() {
-		planetLabel = new BitmapFont();
-		planetSprite = new Sprite(planetTexture);
-		batch = new SpriteBatch();
+		initialiseGraphics();
 	}
 	
 	public void render() {
@@ -154,11 +151,15 @@ public class Planet {
 			planetLabel.draw(batch, planetName, planetSprite.getX(), planetSprite.getY());
 		}
 		batch.end();
+		checkClick();
 	}
 	
 	public void update() {
 		populationGrowth();
 		realY = (int) (planetSprite.getY() * 2);
+	}
+	
+	void checkClick() {
 		if(this.planetSprite.getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - planetSprite.getWidth()) - GameScreen.getScreenY() + realY) && parentStar.getFocus() == true) {
 			planetSprite.setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched()) {
@@ -175,5 +176,38 @@ public class Planet {
 	public void lookAt() {
 		//GameScreen.getCamera().translate(GameScreen.getScreenX() * -1 + realX, GameScreen.getScreenY() * -1 + realY);
 
+	}
+	
+	public void dispose() {
+		System.out.print("Planet graphics destroyed \n");
+		batch.dispose();
+		batch = null;
+		//planetSprite.setTexture(null);
+		planetLabel.dispose();
+		planetLabel = null;
+		setGraphicsInitialised(false);
+	}
+
+	public boolean getFocus() {
+		return focus;
+	}
+
+	public void setFocus(boolean inFocus) {
+		this.focus = inFocus;
+	}
+	
+	public boolean isGraphicsInitialised() {
+		return graphicsInitialised;
+	}
+
+	public void setGraphicsInitialised(boolean graphicsInitialised) {
+		this.graphicsInitialised = graphicsInitialised;
+	}
+
+	public void initialiseGraphics() {
+		batch = new SpriteBatch();
+		planetLabel = new BitmapFont();
+		this.planetSprite = new Sprite(TextureLoader.getMetallicPlanet());
+		setGraphicsInitialised(true);
 	}
 }

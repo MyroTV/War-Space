@@ -10,10 +10,10 @@ public class DebugOverlay {
 	
 	private String mouseX, mouseY, screenX, screenY, gameTurn, FPS;
 	private SpriteBatch batch;
-	private BitmapFont mouseXLabel, mouseYLabel, screenXLabel, screenYLabel, gameTurnLabel, FPSLabel, framesPastLabel, elapsedTimeLabel;
+	private BitmapFont mouseXLabel, mouseYLabel, screenXLabel, screenYLabel, gameTurnLabel, FPSLabel, framesPastLabel, elapsedTimeLabel, renderablesLabel;
 	private boolean isActive;
 	long f3cd1 = 0, f3cd2 = 150000000; //cooldown for debug overlay
-	int tick, framesPast = 0, tickLength = 120, turns; //tick is the game tick, tick length will be used to allow faster or slower game speeds, turn is amount of turns past
+	int tick, framesPast = 0, tickLength = 120, turns, renderables = 0; //tick is the game tick, tick length will be used to allow faster or slower game speeds, turn is amount of turns past
 	float elapsedTime = 0;
 	
 	public void show() {
@@ -26,6 +26,7 @@ public class DebugOverlay {
 		FPSLabel = new BitmapFont();
 		framesPastLabel = new BitmapFont();
 		elapsedTimeLabel = new BitmapFont();
+		renderablesLabel = new BitmapFont();
 		mouseX = "";
 		mouseY = "";
 		screenX = "";
@@ -44,6 +45,7 @@ public class DebugOverlay {
 			FPSLabel.draw(batch, FPS, 0, 920);
 			framesPastLabel.draw(batch, "Frames past: " + framesPast, 0, 900);
 			elapsedTimeLabel.draw(batch, "Elapsed time: " + elapsedTime, 0, 880);
+			renderablesLabel.draw(batch, "Number of renderables: " + renderables, 0, 860);
 		}
 		batch.end();
 	}
@@ -106,6 +108,12 @@ public class DebugOverlay {
 	}
 	public void setScreenY(String screenY) {
 		this.screenY = screenY;
+	}
+	public int getRenderables() {
+		return renderables;
+	}
+	public void incrementRenderables(int renderables) {
+		this.renderables = renderables;
 	}
 	public boolean isActive() {
 		return isActive;

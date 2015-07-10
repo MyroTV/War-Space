@@ -28,7 +28,10 @@ public class Universe {
 			galaxies.add(new Galaxy("Galaxy " + i, 1, new GalaxyType("spiral")));
 			galaxies.get(i).show();
 			galaxies.get(i).setParentUniverse(this);
+			galaxies.get(i).setPosX(i * 100);
+			galaxies.get(i).setPosY(i * 100);
 			galaxies.get(i).getGalaxySprite().setPosition(i * 100, i * 100);
+			System.out.print("Galaxy" + i + "generated \n");
 		}
 	}
 	
@@ -76,8 +79,16 @@ public class Universe {
 		Planet tmpPlanet = null;
 		int tmp = -1;
 		while (tmpPlanet == null) {
-			Galaxy tmpGalaxy = this.galaxies.get(RandomInt.newRandomWithinRange(0, galaxies.size() - 1));
+			Galaxy tmpGalaxy;
+			if(galaxies.size() <= 1) {
+				tmpGalaxy = this.galaxies.get(0);
+			}
+			else {
+				tmpGalaxy = this.galaxies.get(RandomInt.newRandomWithinRange(0, galaxies.size() - 1));
+			}
+			tmpGalaxy.generateTest();
 			StarSystem tmpSystem = tmpGalaxy.getStarSystems().get(RandomInt.newRandomWithinRange(0, tmpGalaxy.getStarSystems().size() - 1));
+			tmpSystem.generatePlanets();
 			if(tmpSystem.getPlanets() != null) {
 				if(tmpSystem.getPlanets().size() > 1) {
 					while(tmp < 0) {
@@ -138,6 +149,9 @@ public class Universe {
 			}
 		}
 		return null;
+	}
+	public ArrayList<Galaxy> getGalaxies() {
+		return galaxies;
 	}
 
 }

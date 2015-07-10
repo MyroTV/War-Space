@@ -18,16 +18,18 @@ import com.me.utils.RandomInt;
 public class Galaxy {
 
 	private ArrayList<StarSystem> starSystems = new ArrayList<StarSystem>();
-	private boolean inFocus = false;
+	private boolean focus = false;
+	private boolean graphicsInitialised = false;
 	private boolean isChildStarFocused = false;
+	private boolean childrenSystemsGenerated = false;
 	private Universe parentUniverse;
 	private String galaxyName;
 	private int numberOfSystems;
 	private Sprite galaxySprite;
 	private SpriteBatch batch;
-	private Texture galaxyTexture;
 	private GalaxyType galaxyType;
 	private BitmapFont galaxyLabel;
+	private int posX, posY;
 	
 	private int[] spiralGalaxy = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 								  0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,
@@ -110,8 +112,8 @@ public class Galaxy {
 				x = 0;
 				y++;
 			}
+			this.setChildSystemsGenerated(true);
 		}
-			
 	}
 	
 	public void lookAt() {
@@ -132,7 +134,7 @@ public class Galaxy {
 		
 		this.batch.begin();
 		
-		if(this.parentUniverse.getFocus() == true) {
+		if(this.parentUniverse.getFocus() == true && isGraphicsInitialised() == true) {
 			this.galaxySprite.draw(this.batch);
 			galaxyLabel.draw(batch, galaxyName, galaxySprite.getX(), galaxySprite.getY());
 		}
@@ -141,19 +143,16 @@ public class Galaxy {
 	}
 	
 	public void show() {
-		this.galaxyTexture = galaxyType.getGalaxyTexture();
-		this.galaxySprite = new Sprite(this.galaxyTexture);
+		//this.galaxyTexture = galaxyType.getGalaxyTexture();
+		this.galaxySprite = new Sprite(TextureLoader.getSpiralGalaxy());
 		this.batch = new SpriteBatch();
 		//this.generateStarSystems();
-		this.generateTest();
 		this.galaxyLabel = new BitmapFont();
+		setGraphicsInitialised(true);
 	}
 	
 	public void update() {
-		this.realX = this.galaxySprite.getX();
-		this.realY = this.galaxySprite.getY() * 2;
-		
-		if(this.getFocus() == true) {
+		if(this.getFocus() == true && this.childrenSystemsGenerated == true) {
 			for(int i = 0; i < starSystems.size(); i++) {
 				starSystems.get(i).update();
 			}
@@ -161,23 +160,31 @@ public class Galaxy {
 		else if(getActiveStarSystem() != null) {
 			getActiveStarSystem().update();
 		}
-		
-		if(this.galaxySprite.getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - galaxySprite.getWidth()) - GameScreen.getScreenY() + realY)) {
-			this.galaxySprite.setColor(1, 1, 1, 0.5f);
-			if(Gdx.input.justTouched() && parentUniverse.getFocus() == true) {
-				System.out.print(this.galaxyName + " clicked\n");
-				Universe.setFocus(false);
-				this.inFocus = true;
-				
+		if(parentUniverse.getFocus() == true && isGraphicsInitialised() == true) {
+			this.realX = this.galaxySprite.getX();
+			this.realY = this.galaxySprite.getY() * 2;
+			if(this.galaxySprite.getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - galaxySprite.getWidth()) - GameScreen.getScreenY() + realY)) {
+				this.galaxySprite.setColor(1, 1, 1, 0.5f);
+				if(Gdx.input.justTouched()) {
+					System.out.print(this.galaxyName + " clicked\n");
+					if(this.childrenSystemsGenerated == false) {
+						this.generateTest();
+					}
+					Universe.setFocus(false);
+					for(int i = 0; i < starSystems.size(); i++) {
+						starSystems.get(i).initialiseGraphics();
+					}
+					this.focus = true;
+				}
 			}
-		}
-		else {
-			galaxySprite.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			else {
+				galaxySprite.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			}
 		}
 	}
 	
 	public boolean getFocus() {
-		return this.inFocus;
+		return this.focus;
 	}
 	
 	public String getGalaxyName() {
@@ -185,7 +192,7 @@ public class Galaxy {
 	}
 	
 	public void setFocus(boolean focus) {
-		this.inFocus = focus;
+		this.focus = focus;
 	}
 	
 	public void setParentUniverse(Universe universe) {
@@ -196,6 +203,22 @@ public class Galaxy {
 		return this.galaxySprite;
 	}
 	
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
 	public ArrayList<StarSystem> getStarSystems() {
 		return this.starSystems;
 	}
@@ -222,5 +245,36 @@ public class Galaxy {
 
 	public void setChildStarFocused(boolean isChildStarFocused) {
 		this.isChildStarFocused = isChildStarFocused;
+	}
+	
+	public void setChildSystemsGenerated(boolean areChildSystemsGenerated) {
+		this.childrenSystemsGenerated = areChildSystemsGenerated;
+	}
+	
+	public boolean isGraphicsInitialised() {
+		return graphicsInitialised;
+	}
+
+	public void setGraphicsInitialised(boolean graphicsInitialised) {
+		this.graphicsInitialised = graphicsInitialised;
+	}
+
+	public void dispose() {
+		if(isGraphicsInitialised() == true) {
+			System.out.print("Galaxy graphics destroyed \n");
+			batch.dispose();
+			galaxySprite = null;
+			galaxyLabel.dispose();
+			setGraphicsInitialised(false);
+		}
+	}
+	
+	public void initialiseGraphics() {
+		System.out.print("INITIALISED");
+		batch = new SpriteBatch();
+		galaxySprite = new Sprite(TextureLoader.getSpiralGalaxy());
+		galaxySprite.setPosition(posX, posY);
+		galaxyLabel = new BitmapFont();
+		setGraphicsInitialised(true);
 	}
 }

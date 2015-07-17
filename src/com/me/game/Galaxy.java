@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -143,11 +142,7 @@ public class Galaxy {
 	}
 	
 	public void show() {
-		//this.galaxyTexture = galaxyType.getGalaxyTexture();
-		this.galaxySprite = new Sprite(TextureLoader.getSpiralGalaxy());
-		this.batch = new SpriteBatch();
-		//this.generateStarSystems();
-		this.galaxyLabel = new BitmapFont();
+		initialiseGraphics();
 		setGraphicsInitialised(true);
 	}
 	
@@ -260,17 +255,16 @@ public class Galaxy {
 	}
 
 	public void dispose() {
-		if(isGraphicsInitialised() == true) {
-			System.out.print("Galaxy graphics destroyed \n");
-			batch.dispose();
-			galaxySprite = null;
-			galaxyLabel.dispose();
-			setGraphicsInitialised(false);
-		}
+		System.out.print(galaxyName + "graphics destroyed \n");
+		batch.dispose();
+		galaxySprite.setTexture(null);
+		galaxySprite = null;
+		galaxyLabel.dispose();
+		setGraphicsInitialised(false);
 	}
 	
 	public void initialiseGraphics() {
-		System.out.print("INITIALISED");
+		System.out.print(galaxyName + " graphics initialised. \n");
 		batch = new SpriteBatch();
 		galaxySprite = new Sprite(TextureLoader.getSpiralGalaxy());
 		galaxySprite.setPosition(posX, posY);

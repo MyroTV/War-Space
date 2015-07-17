@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.me.renderers.Renderer;
 import com.me.screens.GameScreen;
 
 public class StarSystem {
@@ -167,6 +168,7 @@ public class StarSystem {
 		System.out.print("Star System graphics destroyed \n");
 		batch.dispose();
 		batch = null;
+		starSprite.setTexture(null);
 		starSprite = null;
 		starSystemLabel.dispose();
 		starSystemLabel = null;

@@ -13,11 +13,17 @@ public abstract class Entity {
 	private Texture spriteTexture;
 	private String entityName;
 	private BitmapFont entityLabel;
+	private int posX, posY;
+	private boolean clicked = false;
 	
-	public Entity(Texture spriteTexture, String entityName) {
+	public Entity(Texture spriteTexture, String entityName, int posX, int posY) {
 		this.setSpriteTexture(spriteTexture);
 		this.setEntityName(entityName);
-		this.getEntitySprite().setTexture(spriteTexture);
+		this.setPosX(posX);
+		this.setPosY(posY);		
+		
+		this.init();
+		//this.getEntitySprite().setTexture(this.getSpriteTexture());
 	}
 	
 	public abstract void show();
@@ -25,9 +31,11 @@ public abstract class Entity {
 	public abstract void update();
 	public abstract void dispose();
 	public abstract void initialiseGraphics();
+	public abstract void lookAt();
 	
 	public void init() {
-		this.entitySprite = new Sprite();
+		System.out.print("Planet entity initialised \n");
+		this.entitySprite = new Sprite(this.getSpriteTexture());
 		this.entityLabel = new BitmapFont();
 	}
 
@@ -61,5 +69,29 @@ public abstract class Entity {
 
 	public void setEntityLabel(BitmapFont entityLabel) {
 		this.entityLabel = entityLabel;
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
+	public boolean isClicked() {
+		return clicked;
+	}
+
+	public void setClicked(boolean clicked) {
+		this.clicked = clicked;
 	}
 }

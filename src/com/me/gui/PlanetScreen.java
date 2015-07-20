@@ -36,7 +36,7 @@ public class PlanetScreen implements GUIElement {
 	
 	public void setPlanetTexture() {
 		if(this.planet != null) {
-			this.planetTexture = planet.getPlanetSprite().getTexture();
+			this.planetTexture = planet.getPlanetEntity().getSpriteTexture();
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class PlanetScreen implements GUIElement {
 			this.planetSprite = new Sprite(planetTexture);
 		}
 		else if(this.planet != null) {
-			this.planetSprite = planet.getPlanetSprite();
+			//this.planetSprite = planet.getPlanetSprite();
 		}
 	}
 	

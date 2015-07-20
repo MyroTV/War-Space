@@ -38,7 +38,7 @@ public class Player {
 	
 	public void setFocusOnCapital() {
 		if(capitalPlanet != null) {
-			GameScreen.getCamera().translate((GameScreen.getScreenX() * -1) + capitalPlanet.getRealX(), (GameScreen.getScreenY() * -1) + capitalPlanet.getRealY());
+			GameScreen.getCamera().translate((GameScreen.getScreenX() * -1) + capitalPlanet.getPosX(), (GameScreen.getScreenY() * -1) + capitalPlanet.getPosY());
 		}
 	}
 

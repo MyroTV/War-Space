@@ -26,8 +26,6 @@ public class StarSystem {
 	private BitmapFont starSystemLabel;
 	private int x,y;
 	
-	private Texture planetTexture;
-	
 	public StarSystem(String systemName, int numberOfPlanets, StarType starType) {
 		this.systemName = systemName;
 		this.numberOfPlanets = numberOfPlanets;
@@ -40,16 +38,15 @@ public class StarSystem {
 			
 			//Universe.removePlanetNameFromArray(planets.get(i).getPlanetName());
 			planets.get(i).setParentStar(this);
-			planets.get(i).show();
 			if(i == 0) {
-				planets.get(i).getPlanetSprite().setPosition(100 + x, 100 + y);
-				planets.get(i).setRealX(100);
-				planets.get(i).setRealY(100);
+				planets.get(i).setPosX(100 + x);
+				planets.get(i).setPosY(100 + y);
+				planets.get(i).show();
 			}
 			else {
-				planets.get(i).getPlanetSprite().setPosition((i + 1) * 100 + x, (i + 1) * 100 + y);
-				planets.get(i).setRealX((i + 1) * 100);
-				planets.get(i).setRealY((i + 1) * 100);
+				planets.get(i).setPosX((i + 1) * 100 + x);
+				planets.get(i).setPosY((i + 1) * 100 + y);
+				planets.get(i).show();
 			}
 		}
 		this.childPlanetsGenerated = true;

@@ -17,10 +17,8 @@ public class Planet {
 	private PlanetEntity planetEntity;
 	
 	private String planetName;
-	private Sprite planetSprite;
 	private SpriteBatch batch;
-	private BitmapFont planetLabel;
-	private int realX, realY, size;
+	private int posX, posY, size;
 	private PlanetType planetType;
 	private StarSystem parentStar;
 	private int population, populationLimit, populationGrowthPerTick;
@@ -47,28 +45,20 @@ public class Planet {
 		this.planetName = planetName;
 	}
 
-	public Sprite getPlanetSprite() {
-		return planetSprite;
+	public int getPosX() {
+		return posX;
 	}
 
-	public void setPlanetSprite(Sprite planetSprite) {
-		this.planetSprite = planetSprite;
+	public void setPosX(int posX) {
+		this.posX = posX;
 	}
 
-	public int getRealX() {
-		return realX;
+	public int getPosY() {
+		return posY;
 	}
 
-	public void setRealX(int realX) {
-		this.realX = realX;
-	}
-
-	public int getRealY() {
-		return realY;
-	}
-
-	public void setRealY(int realY) {
-		this.realY = realY;
+	public void setPosY(int posY) {
+		this.posY = posY;
 	}
 
 	public int getSize() {
@@ -77,14 +67,6 @@ public class Planet {
 
 	public void setSize(int size) {
 		this.size = size;
-	}
-
-	public BitmapFont getPlanetLabel() {
-		return planetLabel;
-	}
-
-	public void setPlanetLabel(BitmapFont planetLabel) {
-		this.planetLabel = planetLabel;
 	}
 	
 	public void setParentStar(StarSystem starSystem) {
@@ -131,6 +113,14 @@ public class Planet {
 		return this.structureList;
 	}
 
+	public PlanetEntity getPlanetEntity() {
+		return planetEntity;
+	}
+
+	public void setPlanetEntity(PlanetEntity planetEntity) {
+		this.planetEntity = planetEntity;
+	}
+
 	public void populationGrowth() {
 		if(planetOwner != null) {
 			
@@ -144,49 +134,26 @@ public class Planet {
 	public void render() {
 		batch.setProjectionMatrix(GameScreen.getCamera().combined);
 		batch.begin();
-		if(this.parentStar.getFocus() == true) {
-			planetSprite.draw(batch);
-			if(this.planetOwner != null) {
-				planetLabel.setColor(this.planetOwner.getColor());
-			}
-			
-			planetLabel.draw(batch, planetName, planetSprite.getX(), planetSprite.getY());
-		}
+
 		batch.end();
-		checkClick();
+		planetEntity.render();
 	}
 	
 	public void update() {
 		populationGrowth();
-		realY = (int) (planetSprite.getY() * 2);
-	}
-	
-	void checkClick() {
-		if(this.planetSprite.getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - planetSprite.getWidth()) - GameScreen.getScreenY() + realY) && parentStar.getFocus() == true) {
-			planetSprite.setColor(1, 1, 1, 0.5f);
-			if(Gdx.input.justTouched()) {
-				lookAt();
-				Renderer.getGUIRenderer().getPlanetScreen().setPlanet(this);
-				Renderer.getGUIRenderer().getPlanetScreen().setIsActive(true);
-			}
+		this.getPlanetEntity().update();
+		if(this.getPlanetEntity().isClicked() == true) {
+			initialisePlanetScreen();
 		}
-		else {
-			planetSprite.setColor(1, 1, 1, 1);
-		}
-	}
-	
-	public void lookAt() {
-		//GameScreen.getCamera().translate(GameScreen.getScreenX() * -1 + realX, GameScreen.getScreenY() * -1 + realY);
-
+			
 	}
 	
 	public void dispose() {
 		System.out.print("Planet graphics destroyed \n");
 		batch.dispose();
 		batch = null;
-		//planetSprite.setTexture(null);
-		planetLabel.dispose();
-		planetLabel = null;
+		planetEntity.dispose();
+		planetEntity = null;
 		setGraphicsInitialised(false);
 	}
 
@@ -207,9 +174,14 @@ public class Planet {
 	}
 
 	public void initialiseGraphics() {
+		planetEntity = new PlanetEntity(this.planetType.getPlanetTypeTexture(), this.planetName, this.posX, this.posY);
+		
 		batch = new SpriteBatch();
-		planetLabel = new BitmapFont();
-		this.planetSprite = new Sprite(TextureLoader.getMetallicPlanet());
 		setGraphicsInitialised(true);
+	}
+	
+	public void initialisePlanetScreen() {
+		Renderer.getGUIRenderer().getPlanetScreen().setPlanet(this);
+		Renderer.getGUIRenderer().getPlanetScreen().setIsActive(true);
 	}
 }

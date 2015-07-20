@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.me.game.entities.StarSystemEntity;
 import com.me.renderers.Renderer;
 import com.me.screens.GameScreen;
 
 public class StarSystem {
+	
+	private StarSystemEntity starSystemEntity;
 	
 	private Galaxy parentGalaxy;
 	private String systemName;
@@ -24,7 +27,7 @@ public class StarSystem {
 	private StarType starType;
 	private float realY;
 	private BitmapFont starSystemLabel;
-	private int x,y;
+	private int posX,posY;
 	
 	public StarSystem(String systemName, int numberOfPlanets, StarType starType) {
 		this.systemName = systemName;
@@ -39,13 +42,13 @@ public class StarSystem {
 			//Universe.removePlanetNameFromArray(planets.get(i).getPlanetName());
 			planets.get(i).setParentStar(this);
 			if(i == 0) {
-				planets.get(i).setPosX(100 + x);
-				planets.get(i).setPosY(100 + y);
+				planets.get(i).setPosX(100 + posX);
+				planets.get(i).setPosY(100 + posY);
 				planets.get(i).show();
 			}
 			else {
-				planets.get(i).setPosX((i + 1) * 100 + x);
-				planets.get(i).setPosY((i + 1) * 100 + y);
+				planets.get(i).setPosX((i + 1) * 100 + posX);
+				planets.get(i).setPosY((i + 1) * 100 + posY);
 				planets.get(i).show();
 			}
 		}
@@ -85,19 +88,19 @@ public class StarSystem {
 	}
 	
 	public int getX() {
-		return x;
+		return posX;
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.posX = x;
 	}
 
 	public int getY() {
-		return y;
+		return posY;
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.posY = y;
 	}
 
 	public ArrayList<Planet> getPlanets() {
@@ -141,7 +144,7 @@ public class StarSystem {
 		checkClick();
 	}
 	public void lookAt() {
-		GameScreen.getCamera().translate(GameScreen.getScreenX() * -1 + x, GameScreen.getScreenY() * -1 + y);
+		GameScreen.getCamera().translate(GameScreen.getScreenX() * -1 + posX, GameScreen.getScreenY() * -1 + posY);
 	}
 	
 	public void update() {
@@ -173,6 +176,22 @@ public class StarSystem {
 	}
 	
 	void checkClick() {
+		if(starSystemEntity.isClicked() == true) {
+			if(this.childPlanetsGenerated == false) {
+				this.generatePlanets();
+				System.out.print("Planets generated in: " + this.systemName);
+			}
+			this.parentGalaxy.setFocus(false);
+			for(int i = 0; i < planets.size(); i++) {
+				if(planets.get(i).isGraphicsInitialised() == false) {
+					planets.get(i).initialiseGraphics();
+					System.out.print("Planet graphics initialised in: " + this.systemName);
+				}
+			}
+			this.parentGalaxy.setChildStarFocused(true);
+			this.setFocus(true);
+		}
+		
 		if(this.starSprite.getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - starSprite.getWidth()) - GameScreen.getScreenY() + realY)) {
 			this.starSprite.setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched() && parentGalaxy.getFocus() == true) {
@@ -204,5 +223,7 @@ public class StarSystem {
 		starSprite.setPosition(getX(), getY());
 		starSystemLabel = new BitmapFont();
 		setGraphicsInitialised(true);
+		
+		starSystemEntity = new StarSystemEntity(TextureLoader.getYellowStar(), this.systemName, this.posX, this.posY);
 	}
 }

@@ -26,11 +26,10 @@ public class Universe {
 	public void generateGalaxies() {
 		for(int i = 0; i < this.numberOfGalaxies; i++) {
 			galaxies.add(new Galaxy("Galaxy " + i, 1, new GalaxyType("spiral")));
-			galaxies.get(i).show();
 			galaxies.get(i).setParentUniverse(this);
 			galaxies.get(i).setPosX(i * 100);
 			galaxies.get(i).setPosY(i * 100);
-			galaxies.get(i).getGalaxySprite().setPosition(i * 100, i * 100);
+			galaxies.get(i).show();
 			System.out.print("Galaxy" + i + "generated \n");
 		}
 	}

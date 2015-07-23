@@ -21,8 +21,8 @@ public class StarSystemEntity extends Entity {
 		batch.setProjectionMatrix(GameScreen.getCamera().combined);
 
 		batch.begin();
-			super.getEntitySprite().draw(batch);
-			super.getEntityLabel().draw(batch, getEntityName(), super.getPosX(), super.getPosY());
+			this.getEntitySprite().draw(batch);
+			this.getEntityLabel().draw(batch, getEntityName(), this.getPosX(), this.getPosY());
 		batch.end();
 	}
 
@@ -31,28 +31,33 @@ public class StarSystemEntity extends Entity {
 	}
 
 	public void dispose() {
-		super.setSpriteTexture(null);
-		super.setEntitySprite(null);
+		batch.dispose();
+		batch = null;
+		this.setSpriteTexture(null);
+		this.setEntitySprite(null);
+		this.getEntityLabel().dispose();
+		this.setEntityLabel(null);
 	}
 
 	public void initialiseGraphics() {
 		batch = new SpriteBatch();
-		super.getEntitySprite().setPosition(getPosX(), getPosY());
+		this.getEntitySprite().setPosition(getPosX(), getPosY());
+		System.out.print("Star system entity initialised \n");
 	}
 	
 	public void checkClick() {
-		if(super.getEntitySprite().getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - super.getEntitySprite().getWidth()) - GameScreen.getScreenY() + (super.getPosY() * 2))) {
-			super.getEntitySprite().setColor(1, 1, 1, 0.5f);
+		if(this.getEntitySprite().getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - this.getEntitySprite().getWidth()) - GameScreen.getScreenY() + (this.getPosY() * 2))) {
+			this.getEntitySprite().setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched()) {
-				System.out.print(super.getEntityName() + " clicked");
+				System.out.print(this.getEntityName() + " clicked");
 				
 				this.lookAt();
-				super.setClicked(true);
+				this.setClicked(true);
 			}
 		}
 		else {
-			super.getEntitySprite().setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			super.setClicked(false);
+			this.getEntitySprite().setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			this.setClicked(false);
 		}
 	}
 

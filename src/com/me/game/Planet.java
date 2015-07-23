@@ -17,7 +17,6 @@ public class Planet {
 	private PlanetEntity planetEntity;
 	
 	private String planetName;
-	private SpriteBatch batch;
 	private int posX, posY, size;
 	private PlanetType planetType;
 	private StarSystem parentStar;
@@ -128,14 +127,10 @@ public class Planet {
 	}
 
 	public void show() {
-		initialiseGraphics();
+
 	}
 	
 	public void render() {
-		batch.setProjectionMatrix(GameScreen.getCamera().combined);
-		batch.begin();
-
-		batch.end();
 		planetEntity.render();
 	}
 	
@@ -150,8 +145,6 @@ public class Planet {
 	
 	public void dispose() {
 		System.out.print("Planet graphics destroyed \n");
-		batch.dispose();
-		batch = null;
 		planetEntity.dispose();
 		planetEntity = null;
 		setGraphicsInitialised(false);
@@ -175,8 +168,6 @@ public class Planet {
 
 	public void initialiseGraphics() {
 		planetEntity = new PlanetEntity(this.planetType.getPlanetTypeTexture(), this.planetName, this.posX, this.posY);
-		
-		batch = new SpriteBatch();
 		setGraphicsInitialised(true);
 	}
 	

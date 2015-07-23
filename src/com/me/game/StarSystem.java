@@ -18,14 +18,11 @@ public class StarSystem {
 	private Galaxy parentGalaxy;
 	private String systemName;
 	private int numberOfPlanets;
-	private ArrayList<Planet> planets;
-	private Sprite starSprite;
-	private SpriteBatch batch;
+	private ArrayList<Planet> planets = new ArrayList<Planet>();
 	private boolean inFocus = false;
 	private boolean graphicsInitialised = false;
 	private boolean childPlanetsGenerated = false;
 	private StarType starType;
-	private BitmapFont starSystemLabel;
 	private int posX,posY;
 	
 	public StarSystem(String systemName, int numberOfPlanets, StarType starType) {
@@ -43,12 +40,10 @@ public class StarSystem {
 			if(i == 0) {
 				planets.get(i).setPosX(100 + posX);
 				planets.get(i).setPosY(100 + posY);
-				planets.get(i).show();
 			}
 			else {
 				planets.get(i).setPosX((i + 1) * 100 + posX);
 				planets.get(i).setPosY((i + 1) * 100 + posY);
-				planets.get(i).show();
 			}
 		}
 		this.childPlanetsGenerated = true;
@@ -72,10 +67,6 @@ public class StarSystem {
 	
 	public Galaxy getParentGalaxy() {
 		return this.parentGalaxy;
-	}
-	
-	public Sprite getSprite() {
-		return this.starSprite;
 	}
 	
 	public boolean getFocus() {
@@ -123,24 +114,17 @@ public class StarSystem {
 	}
 	
 	public void show() {
-		planets = new ArrayList<Planet>();
 		initialiseGraphics();
 	}
 	
 	public void render() {
-		batch.setProjectionMatrix(GameScreen.getCamera().combined);
-
 		if(this.getFocus() == true) {
 			for(int i = 0; i < planets.size(); i++) {
 				planets.get(i).render();
 			}
 		}
-		batch.begin();
-		
-		batch.end();
 		
 		starSystemEntity.render();
-		checkClick();
 	}
 	public void lookAt() {
 		GameScreen.getCamera().translate(GameScreen.getScreenX() * -1 + posX, GameScreen.getScreenY() * -1 + posY);
@@ -148,6 +132,7 @@ public class StarSystem {
 	
 	public void update() {
 		starSystemEntity.update();
+		checkClick();
 		if(this.inFocus == true && this.childPlanetsGenerated == true) {
 			for(int i = 0; i < planets.size(); i++) {
 				planets.get(i).update();
@@ -165,8 +150,6 @@ public class StarSystem {
 
 	public void dispose() {
 		System.out.print("Star System graphics destroyed \n");
-		batch.dispose();
-		batch = null;
 		starSystemEntity.dispose();
 		starSystemEntity = null;
 		setGraphicsInitialised(false);
@@ -176,13 +159,11 @@ public class StarSystem {
 		if(starSystemEntity.isClicked() == true) {
 			if(this.childPlanetsGenerated == false) {
 				this.generatePlanets();
-				System.out.print("Planets generated in: " + this.systemName);
 			}
 			this.parentGalaxy.setFocus(false);
 			for(int i = 0; i < planets.size(); i++) {
 				if(planets.get(i).isGraphicsInitialised() == false) {
 					planets.get(i).initialiseGraphics();
-					System.out.print("Planet graphics initialised in: " + this.systemName);
 				}
 			}
 			this.parentGalaxy.setChildStarFocused(true);
@@ -191,9 +172,7 @@ public class StarSystem {
 	}
 	
 	public void initialiseGraphics() {
-		batch = new SpriteBatch();
-		setGraphicsInitialised(true);
-		
 		starSystemEntity = new StarSystemEntity(TextureLoader.getYellowStar(), this.systemName, this.posX, this.posY);
+		setGraphicsInitialised(true);
 	}
 }

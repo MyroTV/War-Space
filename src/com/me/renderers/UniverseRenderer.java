@@ -45,7 +45,12 @@ public class UniverseRenderer {
 		backcd1++;
 		if(Gdx.input.isKeyPressed(Keys.Q) && backcd1 > backcd2 + 20) { //cooldown
 			backcd2 = backcd1;
-			if(universe.getFocus() != true && universe.getActiveGalaxy() != null) {
+			if(universe.getFocus() == false && universe.getActiveGalaxy() != null) {
+				if(universe.getActiveGalaxy().getFocus() == true) {
+					for(int i = 0; i < universe.getGalaxies().size(); i++) {
+						universe.getGalaxies().get(i).dispose();
+					}
+				}
 				if(universe.getActiveGalaxy().getFocus() == false) {
 					if(universe.getActiveGalaxy().getActiveStarSystem() != null && universe.getActiveGalaxy().getActiveStarSystem().getFocus() == true) {
 						for(int i = 0; i < universe.getActiveGalaxy().getActiveStarSystem().getPlanets().size(); i++) {

@@ -3,7 +3,6 @@ package com.me.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 //Entity system to seperate GUI and game-data from renderable objects
 //Entity objects can be de-referenced but the object still holds the data it needs
@@ -34,7 +33,6 @@ public abstract class Entity {
 	public abstract void lookAt();
 	
 	public void init() {
-		System.out.print("Planet entity initialised \n");
 		this.entitySprite = new Sprite(this.getSpriteTexture());
 		this.entityLabel = new BitmapFont();
 	}

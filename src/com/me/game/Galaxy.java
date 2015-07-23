@@ -97,11 +97,10 @@ public class Galaxy {
 		for(int i = 0; i < values.size(); i++) {
 			if(values.get(i) == 1) {
 				starSystems.add(new StarSystem("System " + j, RandomInt.newRandom(10), new StarType("yellowStar")));
-				starSystems.get(j).show();
 				starSystems.get(j).setParentGalaxy(this);
-				starSystems.get(j).getSprite().setPosition(x * 100, y * 100);
-				starSystems.get(j).setX(x * 100);
-				starSystems.get(j).setY(y * 100);
+				starSystems.get(j).setPosX(x * 100);
+				starSystems.get(j).setPosY(y * 100);
+				starSystems.get(j).show();
 				//System.out.print("Star System " + j + " generated in " + galaxyName + "\n");
 				starSystems.get(j).generatePlanets();
 				j++;

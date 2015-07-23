@@ -2,14 +2,15 @@ package com.me.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.screens.GameScreen;
 
 public class StarSystemEntity extends Entity {
-
+	private SpriteBatch batch;
 	public StarSystemEntity(Texture spriteTexture, String entityName, int posX,
 			int posY) {
 		super(spriteTexture, entityName, posX, posY);
-
+		this.initialiseGraphics();
 	}
 
 	public void show() {
@@ -17,18 +18,26 @@ public class StarSystemEntity extends Entity {
 	}
 
 	public void render() {
-		
+		batch.setProjectionMatrix(GameScreen.getCamera().combined);
+
+		batch.begin();
+			super.getEntitySprite().draw(batch);
+			super.getEntityLabel().draw(batch, getEntityName(), super.getPosX(), super.getPosY());
+		batch.end();
 	}
 
 	public void update() {
+		checkClick();
 	}
 
 	public void dispose() {
-	
+		super.setSpriteTexture(null);
+		super.setEntitySprite(null);
 	}
 
 	public void initialiseGraphics() {
-		
+		batch = new SpriteBatch();
+		super.getEntitySprite().setPosition(getPosX(), getPosY());
 	}
 	
 	public void checkClick() {

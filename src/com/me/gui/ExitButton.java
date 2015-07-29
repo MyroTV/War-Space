@@ -44,7 +44,7 @@ public class ExitButton extends Button {
 		if(this.exitButtonSprite.getBoundingRectangle().contains((Gdx.input.getX() - (Gdx.graphics.getWidth() / 2)), Math.abs(Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2))))) {
 			exitButtonSprite.setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched()) {
-				parentPlanetScreen.close();
+				parentPlanetScreen.dispose();
 			}
 		}
 		else {

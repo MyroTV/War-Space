@@ -1,17 +1,9 @@
 package com.me.game;
 
 import java.util.ArrayList;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.game.entities.PlanetEntity;
 import com.me.game.structures.Structure;
-import com.me.gui.PlanetScreen;
 import com.me.renderers.Renderer;
-import com.me.screens.GameScreen;
 
 public class Planet {
 	private PlanetEntity planetEntity;

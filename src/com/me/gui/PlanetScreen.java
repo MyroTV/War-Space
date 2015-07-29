@@ -84,20 +84,17 @@ public class PlanetScreen implements GUIElement {
 	public void update() {
 		if(isActive == true) {
 			exitButton.update();
-			if(buildingScrollPane == null) {
-				buildingScrollPane = new ScrollPane(planet.getStructureList().size(), 166, 280, this);
-			}
 		}
 	}
 	
-	public void unset() { //Use this method to un-set PlanetScreen variables
+	public void dispose() { //Use this method to un-set PlanetScreen variables
 		planet = null;
-		planetTexture = null;
+		planetNameLabel.dispose();
+		planetPopulationLabel.dispose();
+		planetNameLabel = null;
+		planetPopulationLabel = null;
 		planetSprite = null;
-	}
-	
-	public void close() {
-		unset();
+		buildingScrollPane = null;
 		isActive = false;
 	}
 	
@@ -113,6 +110,7 @@ public class PlanetScreen implements GUIElement {
 	}
 	
 	public void setIsActive(boolean isActive) {
+		this.show();
 		this.isActive = isActive;
 	}
 	

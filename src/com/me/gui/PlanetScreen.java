@@ -30,7 +30,7 @@ public class PlanetScreen implements GUIElement {
 	
 	private boolean isActive = false;
 	
-	public PlanetScreen() {
+	public PlanetScreen(Planet planet) {
 		
 	}
 	
@@ -112,6 +112,7 @@ public class PlanetScreen implements GUIElement {
 	public void setIsActive(boolean isActive) {
 		this.show();
 		this.isActive = isActive;
+		System.out.println("Planet screen is active for " + this.planet.getPlanetName());
 	}
 	
 	public boolean isActive() {

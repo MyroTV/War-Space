@@ -2,6 +2,7 @@ package com.me.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.screens.GameScreen;
@@ -37,15 +38,15 @@ public class DebugOverlay {
 	public void render() {
 		batch.begin();
 		if(this.isActive == true) {
-			mouseXLabel.draw(batch, mouseX, 0, 1020);
-			mouseYLabel.draw(batch, mouseY, 0, 1000);
-			screenXLabel.draw(batch, screenX, 0, 980);
-			screenYLabel.draw(batch, screenY, 0, 960);
-			gameTurnLabel.draw(batch, gameTurn, 0, 940);
-			FPSLabel.draw(batch, FPS, 0, 920);
-			framesPastLabel.draw(batch, "Frames past: " + framesPast, 0, 900);
-			elapsedTimeLabel.draw(batch, "Elapsed time: " + elapsedTime, 0, 880);
-			renderablesLabel.draw(batch, "Number of renderables: " + renderables, 0, 860);
+			mouseXLabel.draw(batch, mouseX, 0, Gdx.graphics.getHeight());
+			mouseYLabel.draw(batch, mouseY, 0, Gdx.graphics.getHeight() - mouseYLabel.getLineHeight());
+			screenXLabel.draw(batch, screenX, 0, Gdx.graphics.getHeight() - mouseYLabel.getLineHeight() * 2);
+			screenYLabel.draw(batch, screenY, 0, Gdx.graphics.getHeight() - mouseYLabel.getLineHeight() * 3);
+			gameTurnLabel.draw(batch, gameTurn, 0, Gdx.graphics.getHeight() - mouseYLabel.getLineHeight() * 4);
+			FPSLabel.draw(batch, FPS, 0, Gdx.graphics.getHeight() - mouseYLabel.getLineHeight() * 5);
+			framesPastLabel.draw(batch, "Frames past: " + framesPast, 0, Gdx.graphics.getHeight() - mouseYLabel.getLineHeight() * 6);
+			elapsedTimeLabel.draw(batch, "Elapsed time: " + elapsedTime, 0, Gdx.graphics.getHeight() - mouseYLabel.getLineHeight() * 7);
+			renderablesLabel.draw(batch, "Number of renderables: " + renderables, 0, Gdx.graphics.getHeight() - mouseYLabel.getLineHeight() * 8);
 		}
 		batch.end();
 	}
@@ -63,14 +64,17 @@ public class DebugOverlay {
 		}
 		//COOLDOWN BEGIN       (Cooldown was needed because update is called multiple times per second so just pressing F3 once could change the boolean multiple times)
 		if(Gdx.input.isKeyPressed(Keys.F3) && this.isActive() == false && f3cd1 == 0) {
+			System.out.println("Debug screen is active.");
 				this.setActive(true);
 				f3cd1 = System.nanoTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.F3) && this.isActive() == false && System.nanoTime() - f3cd1 > f3cd2) {
+			System.out.println("Debug screen is active.");
 			this.setActive(true);
 			f3cd1 = System.nanoTime();
 		}
 		else if((Gdx.input.isKeyPressed(Keys.F3) && this.isActive() == true)) {
+			System.out.println("Debug screen is inactive.");
 			if(System.nanoTime() - f3cd1 > f3cd2) {
 			this.setActive(false);
 			f3cd1 = System.nanoTime();

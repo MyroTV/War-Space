@@ -19,7 +19,7 @@ public class GUIRenderer {
 	
 	public void show() {
 		guiCamera = new OrthographicCamera(1680, 1020);
-		planetScreen = new PlanetScreen();
+		planetScreen = new PlanetScreen(null);
 		planetScreen.show();
 		batch = new SpriteBatch();
 	}
@@ -28,7 +28,7 @@ public class GUIRenderer {
 		batch.setProjectionMatrix(guiCamera.combined);
 		batch.begin();
 		
-		if(planetScreen != null && planetScreen.isActive() == true) {
+		if(planetScreen.isActive() == true) {
 			planetScreen.render();
 		}
 		

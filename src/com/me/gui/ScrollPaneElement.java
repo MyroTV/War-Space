@@ -2,6 +2,7 @@ package com.me.gui;
 
 import com.me.game.structures.Structure;
 import com.me.interfaces.GUIElement;
+import com.me.renderers.GUIRenderer;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -28,6 +29,7 @@ public class ScrollPaneElement implements GUIElement {
 	
 	public void show() {
 		structureNameLabel = new BitmapFont();
+		batch = new SpriteBatch();
 	}
 	
 	public void update() {
@@ -35,7 +37,8 @@ public class ScrollPaneElement implements GUIElement {
 	}
 	
 	public void render() {
-		batch.begin();		
+		batch.setProjectionMatrix(GUIRenderer.getGraphicsCamera().combined);
+		batch.begin();
 		structureNameLabel.draw(batch, structure.getName(), x, y);
 		batch.end();
 	}

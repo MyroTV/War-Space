@@ -41,7 +41,6 @@ public class MainMenuScreen implements Screen {
 			//ASGrid.render();
 		batch.end();
 		//tb.render();
-		dbOverlay.render();
 	}
 
 	@Override
@@ -64,6 +63,12 @@ public class MainMenuScreen implements Screen {
 	}
 	@Override
 	public void show() {
+		Gdx.graphics.setDisplayMode(
+	              Gdx.graphics.getDesktopDisplayMode().width,
+	              Gdx.graphics.getDesktopDisplayMode().height, 
+	              true
+		);
+		
 		Texture.setEnforcePotImages(false); //Do not put anything before this
 		
 		batch = new SpriteBatch();

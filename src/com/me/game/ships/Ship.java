@@ -1,4 +1,6 @@
-package com.me.game;
+package com.me.game.ships;
+
+import com.me.game.WeaponType;
 
 public abstract class Ship {
 	

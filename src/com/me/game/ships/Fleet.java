@@ -1,6 +1,8 @@
-package com.me.game;
+package com.me.game.ships;
 
 import java.util.ArrayList;
+
+import com.me.game.Planet;
 
 public class Fleet {
 	private String fleetName;

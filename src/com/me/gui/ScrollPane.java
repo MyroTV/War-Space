@@ -9,7 +9,7 @@ public class ScrollPane implements GUIElement {
 	private ArrayList<ScrollPaneElement> displayedPanes = new ArrayList<ScrollPaneElement>();
 	private Button upButton, downButton;
 	private int maxElements; //maxElements is max elements to display at any one time note: can be higher than scrollPaneElements.size()
-	private int sizeX, sizeY, x, y;
+	private int sizeX, sizeY, x, y; //x and y are the point of the top left corner
 	private PlanetScreen parentScreen;
 	
 	
@@ -31,16 +31,14 @@ public class ScrollPane implements GUIElement {
 	}
 	
 	public void render() { //only render 'displayed panes'
-		if(scrollPaneElements != null) {
-			if(scrollPaneElements.size() > 0 && scrollPaneElements.size() < maxElements) {
-				for(int i = 0; i < maxElements; i++) {
-					displayedPanes.get(i).render();
-				}
+		if(scrollPaneElements.size() > 0 && scrollPaneElements.size() <= maxElements) {
+			for(int i = 0; i < scrollPaneElements.size(); i++) {
+				displayedPanes.get(i).render();
 			}
-			else if(scrollPaneElements.size() > maxElements){
-				for(int i = 0; i < maxElements; i++) {
-					displayedPanes.get(i).render();
-				}
+		}
+		else if(scrollPaneElements.size() > maxElements){
+			for(int i = 0; i < maxElements; i++) {
+				displayedPanes.get(i).render();
 			}
 		}
 	}
@@ -49,8 +47,8 @@ public class ScrollPane implements GUIElement {
 		if(parentScreen.getPlanet().getStructureList() != null) {
 			if(parentScreen.getPlanet().getStructureList().size() != 0) {
 				for(int i = 0; i < parentScreen.getPlanet().getStructureList().size(); i++) {
-					scrollPaneElements.add(new ScrollPaneElement(0, 280 - 28, 166, 28, this, parentScreen.getPlanet().getStructureList().get(i)));
-					System.out.print("generated " + parentScreen.getPlanet().getStructureList().get(i).getName());
+					scrollPaneElements.add(new ScrollPaneElement(328, 293, 166, 28, this, parentScreen.getPlanet().getStructureList().get(i)));
+					System.out.println("created pane for " + parentScreen.getPlanet().getStructureList().get(i).getName() + " on " + parentScreen.getPlanet().getPlanetName());
 				}
 			}
 		}
@@ -60,6 +58,7 @@ public class ScrollPane implements GUIElement {
 		if(scrollPaneElements != null && scrollPaneElements.size() > 0) {
 			for(int i = 0; i < scrollPaneElements.size(); i++) {
 				 scrollPaneElements.get(i).show();
+				 System.out.println("Pane initialised.");
 			}
 		}
 	}
@@ -71,7 +70,7 @@ public class ScrollPane implements GUIElement {
 				
 				if(parentScreen.getPlanet().getStructureList() != null && parentScreen.getPlanet().getStructureList().size() != 0) {
 					for(int i = 0; i < parentScreen.getPlanet().getStructureList().size(); i++) {
-						scrollPaneElements.add(new ScrollPaneElement(0, 280 - 28, 166, 28, this, parentScreen.getPlanet().getStructureList().get(i)));
+						scrollPaneElements.add(new ScrollPaneElement(this.x, this.y + 280 - 28, 166, 28, this, parentScreen.getPlanet().getStructureList().get(i)));
 					}
 				}
 			}

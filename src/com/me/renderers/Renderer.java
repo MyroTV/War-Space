@@ -26,7 +26,6 @@ public class Renderer {
 	
 	public void render() {
 		batch.begin();
-		
 			universeRenderer.render();
 			guiRenderer.render();
 			dbOverlay.render();

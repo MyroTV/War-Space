@@ -129,14 +129,14 @@ public class Planet {
 	public void update() {
 		populationGrowth();
 		this.getPlanetEntity().update();
-		if(this.getPlanetEntity().isClicked() == true) {
+		if(this.getPlanetEntity().isClicked() == true && Renderer.getGUIRenderer().getPlanetScreen().isActive() == false) {
 			initialisePlanetScreen();
 		}
 			
 	}
 	
 	public void dispose() {
-		System.out.print("Planet graphics destroyed \n");
+		System.out.println("Planet graphics destroyed.");
 		planetEntity.dispose();
 		planetEntity = null;
 		setGraphicsInitialised(false);

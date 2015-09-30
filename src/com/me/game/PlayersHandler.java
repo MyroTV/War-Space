@@ -24,7 +24,7 @@ public class PlayersHandler {
 			humanPlayer.getCapitalPlanet().addStructure(new Capital("Capital"));
 			humanPlayer.getCapitalPlanet().addStructure(new Factory());
 			humanPlayer.setColor(Color.GREEN);
-			//System.out.print("Player Capital generated in: " + humanPlayer.getCapitalPlanet().getParentStar().getSystemName() + ", " + humanPlayer.getCapitalPlanet().getParentStar().getParentGalaxy().getGalaxyName());
+			System.out.print("Player Capital" + "(" + humanPlayer.getCapitalPlanet().getPlanetName() + ") " + "generated in: " + humanPlayer.getCapitalPlanet().getParentStar().getSystemName() + ", " + humanPlayer.getCapitalPlanet().getParentStar().getParentGalaxy().getGalaxyName());
 		}
 	}
 	

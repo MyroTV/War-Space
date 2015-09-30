@@ -44,7 +44,7 @@ public class PlanetEntity extends Entity {
 	public void initialiseGraphics() {
 		batch = new SpriteBatch();
 		this.getEntitySprite().setPosition(getPosX(), getPosY());
-		System.out.print("Planet entity initialised \n");
+		System.out.println("Planet entity initialised.");
 		//super.getEntitySprite().setTexture(getSpriteTexture());
 	}
 	

@@ -42,14 +42,14 @@ public class GalaxyEntity extends Entity {
 	public void initialiseGraphics() {
 		batch = new SpriteBatch();
 		this.getEntitySprite().setPosition(getPosX(), getPosY());
-		System.out.print("Galaxy entity initialised \n");
+		System.out.println("Galaxy entity initialised.");
 	}
 	
 	public void checkClick() {
 		if(this.getEntitySprite().getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1), Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - this.getEntitySprite().getWidth()) - GameScreen.getScreenY() + (this.getPosY() * 2))) {
 			this.getEntitySprite().setColor(1, 1, 1, 0.5f);
 			if(Gdx.input.justTouched()) {
-				System.out.print(this.getEntityName() + " clicked");
+				System.out.println(this.getEntityName() + " clicked.");
 				
 				this.lookAt();
 				this.setClicked(true);

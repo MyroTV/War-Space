@@ -93,9 +93,9 @@ public class GameScreen implements Screen{
 	}
 
 	public void show() {
+		camera = new OrthographicCamera(1680, 1020);
 		renderer = new Renderer();
 		renderer.show();
-		camera = new OrthographicCamera(1680, 1020);
 		batch = new SpriteBatch();
 		playerHandler = new PlayersHandler(1);
 		playerHandler.show();

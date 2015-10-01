@@ -58,10 +58,6 @@ public class PlanetScreen implements GUIElement {
 		exitButton = new ExitButton((int)planetScreenSprite.getWidth() - 20, (int)planetScreenSprite.getHeight());
 		exitButton.show();
 		exitButton.setParentPlanetScreen(this);
-		planet = new Planet("Placeholder", new PlanetType("Placeholder"));
-		planet.addStructure(new CapitalStructure("capital"));
-		buildingScrollPane = new ScrollPane(10, 166, 280, this);
-		buildingScrollPane.show();
 	}
 	
 	public void render() {
@@ -99,10 +95,14 @@ public class PlanetScreen implements GUIElement {
 	}
 	
 	public void setPlanet(Planet planet) {
+		System.out.println("PlanetScreen planet set.");
 		this.planet = planet;
 		setPlanetTexture();
 		setPlanetSprite();
 		planetSprite.setPosition(12, (int)planetScreenSprite.getHeight() - 62);
+		buildingScrollPane = new ScrollPane(10, 166, 280, this);
+		buildingScrollPane.show();
+		
 	}
 	
 	public Planet getPlanet() {

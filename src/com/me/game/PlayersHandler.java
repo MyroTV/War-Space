@@ -22,7 +22,7 @@ public class PlayersHandler {
 			humanPlayer = playersList.get(i);
 			humanPlayer.getCapitalPlanet().setPlanetOwner(humanPlayer);
 			humanPlayer.getCapitalPlanet().addStructure(new Capital("Capital"));
-			humanPlayer.getCapitalPlanet().addStructure(new Factory());
+			//humanPlayer.getCapitalPlanet().addStructure(new Factory());
 			humanPlayer.setColor(Color.GREEN);
 			System.out.println("Player Capital" + "(" + humanPlayer.getCapitalPlanet().getPlanetName() + ") " + "generated in: " + humanPlayer.getCapitalPlanet().getParentStar().getSystemName() + ", " + humanPlayer.getCapitalPlanet().getParentStar().getParentGalaxy().getGalaxyName());
 		}

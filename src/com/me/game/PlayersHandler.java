@@ -21,6 +21,7 @@ public class PlayersHandler {
 			playersList.add(new Player(new Race(), true, GameScreen.getRenderer().getUniverseRenderer().getUniverse().getRandomPlanet()));
 			humanPlayer = playersList.get(i);
 			humanPlayer.getCapitalPlanet().setPlanetOwner(humanPlayer);
+			humanPlayer.getCapitalPlanet().setFleetDocked(true);
 			humanPlayer.getCapitalPlanet().addStructure(new Capital("Capital"));
 			//humanPlayer.getCapitalPlanet().addStructure(new Factory());
 			humanPlayer.setColor(Color.GREEN);

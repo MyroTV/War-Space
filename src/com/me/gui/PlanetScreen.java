@@ -58,6 +58,7 @@ public class PlanetScreen implements GUIElement {
 		exitButton = new ExitButton((int)planetScreenSprite.getWidth() - 20, (int)planetScreenSprite.getHeight());
 		exitButton.show();
 		exitButton.setParentPlanetScreen(this);
+		planetScreenSprite.setColor(1, 1, 1, .7f);
 	}
 	
 	public void render() {

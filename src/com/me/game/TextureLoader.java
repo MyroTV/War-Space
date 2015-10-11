@@ -11,10 +11,13 @@ public class TextureLoader {
 	
 	private static Texture spiralGalaxy; //galaxy textures
 	
+	private static Texture fleetIndicator; //GUI textures
+	
 	public void loadTextures() {
 		setMetallicPlanet(new Texture(Gdx.files.internal("assets/metallic.png")));
 		setYellowStar(new Texture(Gdx.files.internal("assets/yellowStar.png")));
 		setSpiralGalaxy(new Texture(Gdx.files.internal("assets/spiral.png")));
+		setFleetIndicator(new Texture(Gdx.files.internal("assets/fleetIndicator.png")));
 	}
 
 	public static Texture getMetallicPlanet() {
@@ -39,6 +42,14 @@ public class TextureLoader {
 
 	public static void setSpiralGalaxy(Texture spiralGalaxy) {
 		TextureLoader.spiralGalaxy = spiralGalaxy;
+	}
+
+	public static Texture getFleetIndicator() {
+		return fleetIndicator;
+	}
+
+	public static void setFleetIndicator(Texture fleetIndicator) {
+		TextureLoader.fleetIndicator = fleetIndicator;
 	}
 	
 	

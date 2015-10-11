@@ -1,8 +1,10 @@
 package com.me.game;
 
 import java.util.ArrayList;
+
 import com.me.game.entities.PlanetEntity;
 import com.me.game.structures.Structure;
+import com.me.gui.FleetIndicator;
 import com.me.renderers.Renderer;
 
 public class Planet {
@@ -21,11 +23,15 @@ public class Planet {
 	private boolean focus = false;
 	private boolean isCapital = false;
 	private boolean graphicsInitialised = false;
+	private boolean fleetDocked = false;
 	private ArrayList<Structure> structureList = new ArrayList<Structure>();
+	private FleetIndicator fleetIndicator;
 	
 	public Planet(String planetName, PlanetType planetType) {
 		this.planetName = planetName;
 		this.planetType = planetType;
+		fleetIndicator = new FleetIndicator(posX, posY);
+		fleetIndicator.init();
 	}
 	
 	public String getPlanetName() {
@@ -112,6 +118,14 @@ public class Planet {
 		this.planetEntity = planetEntity;
 	}
 
+	public boolean isFleetDocked() {
+		return fleetDocked;
+	}
+
+	public void setFleetDocked(boolean fleetDocked) {
+		this.fleetDocked = fleetDocked;
+	}
+
 	public void populationGrowth() {
 		if(planetOwner != null) {
 			
@@ -124,6 +138,9 @@ public class Planet {
 	
 	public void render() {
 		planetEntity.render();
+		if(fleetDocked) {
+			fleetIndicator.render();
+		}
 	}
 	
 	public void update() {
@@ -132,7 +149,11 @@ public class Planet {
 		if(this.getPlanetEntity().isClicked() == true && Renderer.getGUIRenderer().getPlanetScreen().isActive() == false) {
 			initialisePlanetScreen();
 		}
-			
+		if(fleetDocked) {
+			fleetIndicator.setPosX(posX);
+			fleetIndicator.setPosY(posY);
+			fleetIndicator.update();
+		}
 	}
 	
 	public void dispose() {

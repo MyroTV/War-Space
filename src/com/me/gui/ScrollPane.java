@@ -48,7 +48,7 @@ public class ScrollPane implements GUIElement {
 			if(parentScreen.getPlanet().getStructureList().size() != 0) {
 				for(int i = 0; i < parentScreen.getPlanet().getStructureList().size(); i++) {
 					scrollPaneElements.add(new ScrollPaneElement(328, 293, 166, 28, this, parentScreen.getPlanet().getStructureList().get(i)));
-					System.out.println(parentScreen.getPlanet().getStructureList().size() + "created pane for " + parentScreen.getPlanet().getStructureList().get(i).getName() + " on " + parentScreen.getPlanet().getPlanetName());
+					System.out.println("Created pane for " + parentScreen.getPlanet().getStructureList().get(i).getName() + " on " + parentScreen.getPlanet().getPlanetName());
 				}
 			}
 		}

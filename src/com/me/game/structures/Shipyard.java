@@ -1,6 +1,6 @@
 package com.me.game.structures;
 
-public class ShipFactory extends ProductionStructure {
+public class Shipyard extends ProductionStructure {
 	
 	private int output;
 	

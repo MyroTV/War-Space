@@ -1,8 +1,11 @@
 package com.me.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Color;
 import com.me.screens.GameScreen;
 import com.me.utils.RandomInt;
+import com.me.game.ships.*;
 
 public class Player {
 
@@ -12,6 +15,7 @@ public class Player {
 	private int processedMaterials;
 	private Planet capitalPlanet;
 	private Color raceColor;
+	private ArrayList<Fleet> fleets = new ArrayList<Fleet>();
 	private boolean isHumanControlled = false;
 	
 	public Player(Race race, boolean isHumanControlled, Planet capitalPlanet) {
@@ -57,4 +61,5 @@ public class Player {
 	public void setCapitalPlanet(Planet capitalPlanet) {
 		this.capitalPlanet = capitalPlanet;
 	}
+	
 }

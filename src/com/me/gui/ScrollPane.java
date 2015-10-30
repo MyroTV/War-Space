@@ -43,6 +43,10 @@ public class ScrollPane implements GUIElement {
 		}
 	}
 	
+	public void dispose() {
+		
+	}
+	
 	public void generatePanes() {
 		if(parentScreen.getPlanet().getStructureList() != null) {
 			if(parentScreen.getPlanet().getStructureList().size() != 0) {

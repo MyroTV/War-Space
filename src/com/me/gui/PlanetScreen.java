@@ -19,6 +19,7 @@ public class PlanetScreen implements GUIElement {
 	private BitmapFont planetPopulationLabel;
 	
 	private ExitButton exitButton;
+	private BuildingButton buildingButton;
 	
 	private ScrollPane buildingScrollPane;
 	
@@ -56,7 +57,7 @@ public class PlanetScreen implements GUIElement {
 		planetScreenTexture  = new Texture("assets/planetScreenTemp.png");
 		planetScreenSprite = new Sprite(planetScreenTexture);
 		exitButton = new ExitButton((int)planetScreenSprite.getWidth() - 20, (int)planetScreenSprite.getHeight());
-		exitButton.show();
+		exitButton.init();
 		exitButton.setParentPlanetScreen(this);
 		planetScreenSprite.setColor(1, 1, 1, .7f);
 	}

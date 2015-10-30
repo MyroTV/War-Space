@@ -43,4 +43,7 @@ public class ScrollPaneElement implements GUIElement {
 		batch.end();
 	}
 	
+	public void dispose() {
+		
+	}
 }

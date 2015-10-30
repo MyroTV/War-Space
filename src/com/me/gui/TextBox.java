@@ -106,6 +106,10 @@ public class TextBox implements GUIElement {
 		keyListener.checkKeyPressed();
 	}
 	
+	public void dispose() {
+		
+	}
+	
 	public void clear() {
 		this.isMouseOver();
 		if(this.isMouseOver() == true) {

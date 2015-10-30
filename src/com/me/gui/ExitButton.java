@@ -4,29 +4,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.me.game.TextureLoader;
 import com.me.renderers.GUIRenderer;
 import com.me.screens.GameScreen;
 
 public class ExitButton extends Button {
-	
-	private Texture exitButtonTexture;
-	private Sprite exitButtonSprite;
-	
+	private Sprite exitButtonSprite;	
 	private SpriteBatch batch;
-	
 	private PlanetScreen parentPlanetScreen;
-	
 	private int posX, posY;
 	
 	public ExitButton(int posX, int posY) {
 		super(posX, posY);
 	}
 
-	public void show() {
+	public void init() {
 		batch = new SpriteBatch();
-		
-		exitButtonTexture = new Texture("assets/exitButton.png");
-		exitButtonSprite = new Sprite(exitButtonTexture);
+		exitButtonSprite = new Sprite(TextureLoader.getExitButton());
 		exitButtonSprite.setPosition(this.getX(), this.getY());
 	}
 
@@ -50,6 +44,10 @@ public class ExitButton extends Button {
 		else {
 			exitButtonSprite.setColor(1, 1, 1, 1);
 		}
+	}
+	
+	public void dispose() {
+		exitButtonSprite = null;
 	}
 
 	public PlanetScreen getParentPlanetScreen() {

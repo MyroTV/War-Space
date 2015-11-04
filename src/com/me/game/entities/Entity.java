@@ -14,6 +14,7 @@ public abstract class Entity {
 	private BitmapFont entityLabel;
 	private int posX, posY;
 	private boolean clicked = false;
+	private boolean hovered = false;
 	
 	public Entity(Texture spriteTexture, String entityName, int posX, int posY) {
 		this.setSpriteTexture(spriteTexture);
@@ -91,5 +92,13 @@ public abstract class Entity {
 
 	public void setClicked(boolean clicked) {
 		this.clicked = clicked;
+	}
+
+	public boolean isHovered() {
+		return hovered;
+	}
+
+	public void setHovered(boolean hovered) {
+		this.hovered = hovered;
 	}
 }

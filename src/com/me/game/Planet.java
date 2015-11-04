@@ -2,10 +2,13 @@ package com.me.game;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.me.game.entities.PlanetEntity;
 import com.me.game.structures.Structure;
 import com.me.gui.FleetIndicator;
+import com.me.gui.Tooltip;
 import com.me.renderers.Renderer;
+import com.me.screens.GameScreen;
 
 public class Planet {
 	private PlanetEntity planetEntity;
@@ -26,13 +29,18 @@ public class Planet {
 	private boolean fleetDocked = false;
 	private ArrayList<Structure> structureList = new ArrayList<Structure>();
 	private FleetIndicator fleetIndicator;
+	private Tooltip tooltip;
 	
 	public Planet(String planetName, PlanetType planetType) {
 		this.planetName = planetName;
 		this.planetType = planetType;
 		fleetIndicator = new FleetIndicator(posX, posY);
 		fleetIndicator.init();
+		tooltip = new Tooltip(planetName);
+		tooltip.init();
 	}
+	//TO DO LIST
+	//
 	
 	public String getPlanetName() {
 		return planetName;
@@ -126,20 +134,30 @@ public class Planet {
 		this.fleetDocked = fleetDocked;
 	}
 
+	public Tooltip getTooltip() {
+		return tooltip;
+	}
+
 	public void populationGrowth() {
 		if(planetOwner != null) {
 			
 		}
 	}
-
-	public void show() {
-
+	public void init() {
+		tooltip = new Tooltip("Test");
+		tooltip.init();
+		fleetIndicator = new FleetIndicator(0, 0);
+		fleetIndicator.init();
 	}
 	
 	public void render() {
 		planetEntity.render();
 		if(fleetDocked) {
 			fleetIndicator.render();
+		}
+		if(planetEntity.isHovered()) {
+			tooltip.setPosition(Gdx.input.getX() + 20, Gdx.graphics.getHeight() - Gdx.input.getY());
+			tooltip.render();
 		}
 	}
 	
@@ -161,6 +179,9 @@ public class Planet {
 		planetEntity.dispose();
 		planetEntity = null;
 		setGraphicsInitialised(false);
+		tooltip.dispose();
+		tooltip = null;
+		fleetIndicator = null;
 	}
 
 	public boolean getFocus() {

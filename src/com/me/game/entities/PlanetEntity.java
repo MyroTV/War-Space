@@ -52,6 +52,7 @@ public class PlanetEntity extends Entity {
 		if(this.getEntitySprite().getBoundingRectangle().contains(Gdx.input.getX() - (Gdx.graphics.getWidth() / 2) - (GameScreen.getScreenX() * -1),
 				Gdx.input.getY() - ((Gdx.graphics.getHeight() / 2) - this.getEntitySprite().getWidth()) - GameScreen.getScreenY() + (this.getPosY() * 2))) {
 			this.getEntitySprite().setColor(1, 1, 1, 0.5f);
+			this.setHovered(true);
 			if(Gdx.input.justTouched()) {
 				lookAt();
 				this.setClicked(true);
@@ -60,6 +61,7 @@ public class PlanetEntity extends Entity {
 		else {
 			this.getEntitySprite().setColor(1, 1, 1, 1);
 			this.setClicked(false);
+			this.setHovered(false);
 		}
 	}
 	public void lookAt() {

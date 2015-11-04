@@ -74,6 +74,9 @@ public class StarSystem {
 	}
 	
 	public void setFocus(boolean focus) {
+		for(int i = 0; i < planets.size(); i++) {
+			planets.get(i).init();
+		}
 		this.inFocus = focus;
 	}
 	

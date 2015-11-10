@@ -114,7 +114,7 @@ public class PlanetScreen implements GUIElement {
 	public void setIsActive(boolean isActive) {
 		this.show();
 		this.isActive = isActive;
-		System.out.println("Planet screen is active for " + this.planet.getPlanetName());
+		System.out.println("PlanetScreen is active for " + this.planet.getPlanetName());
 	}
 	
 	public boolean isActive() {

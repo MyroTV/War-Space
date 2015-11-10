@@ -15,7 +15,8 @@ public class Tooltip implements GUIElement {
 	private String content;
 	private BitmapFont contentFont;
 	private int height, width, posX, posY;
-	private int maxWidth, maxHeight;
+	private int maxWidth = 300, maxHeight;
+	private int padding = 4;
 	private Sprite tooltipSprite;
 	private SpriteBatch batch;
 	private boolean isActive = false;
@@ -27,17 +28,21 @@ public class Tooltip implements GUIElement {
 	public void init() {
 		tooltipSprite = new Sprite(TextureLoader.getTooltip());
 		batch = new SpriteBatch();
-		setDimensions(content);
 		contentFont = new BitmapFont();
+		//the below lines are causing leaks!
+		tooltipSprite.setSize(40, 40);
+		setDimensions(content);
 	}
 
 	public void dispose() {
+		this.setActive(false);
 		batch.dispose();
 		batch = null;
 		contentFont.dispose();
 		contentFont = null;
 		content = null;
 		tooltipSprite = null;
+		System.out.println("Tooltip disposed.");
 	}
 
 	public void render() {
@@ -45,10 +50,16 @@ public class Tooltip implements GUIElement {
 		//batch.setProjectionMatrix(GUIRenderer.getGraphicsCamera().combined);
 		batch.begin();
 		tooltipSprite.draw(batch);
+		contentFont.draw(batch, content, posX + (padding / 2), posY + tooltipSprite.getHeight() - (padding / 2));
 		batch.end();
 	}
 
 	public void setDimensions(String content) {
+		if(contentFont.computeVisibleGlyphs(content, 0, content.length(), maxWidth) == content.length()) {
+			tooltipSprite.setSize(contentFont.getBounds(content).width + padding, contentFont.getBounds(content).height + padding);
+			//System.out.println(maxHeight + " , " + tooltipSprite.getWidth());
+		}
+		
 		//will take description as an argument and calculate the dimensions based on the size of the string
 	}
 
@@ -61,7 +72,7 @@ public class Tooltip implements GUIElement {
 	}
 
 	public void setPosition(int x, int y) {
-		this.posX = x;
-		this.posY = y;
+		posX = x;
+		posY = y;
 	}
 }

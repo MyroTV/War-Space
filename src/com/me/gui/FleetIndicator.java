@@ -11,8 +11,8 @@ public class FleetIndicator {
 //This will sit over a planet and possibly star system and galaxy
 	private SpriteBatch batch;
 	private Sprite fleetIndicatorSprite;
-	private Texture fleetIndicatorTexture;
 	private int posX, posY;
+	private Tooltip tooltip;
 	
 	public FleetIndicator(int posX, int posY) {
 		this.posX = posX;
@@ -20,9 +20,19 @@ public class FleetIndicator {
 	}
 	
 	public void init() {
+		System.out.println("Fleet indicator initialised.");
 		batch = new SpriteBatch();
-		fleetIndicatorTexture = TextureLoader.getFleetIndicator();
-		fleetIndicatorSprite = new Sprite(fleetIndicatorTexture);
+		fleetIndicatorSprite = new Sprite(TextureLoader.getFleetIndicator());
+		tooltip = new Tooltip("");
+		tooltip.init();
+	}
+	
+	public void dispose() {
+		batch.dispose();
+		batch = null;
+		fleetIndicatorSprite = null;
+		tooltip.dispose();
+		tooltip = null;
 	}
 	
 	public void render() {

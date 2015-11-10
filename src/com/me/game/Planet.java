@@ -7,10 +7,16 @@ import com.me.game.entities.PlanetEntity;
 import com.me.game.structures.Structure;
 import com.me.gui.FleetIndicator;
 import com.me.gui.Tooltip;
+import com.me.interfaces.Orbitable;
 import com.me.renderers.Renderer;
 import com.me.screens.GameScreen;
 
-public class Planet {
+public class Planet implements Orbitable {
+	//TO DO
+	//Building space
+	//land requisition (clearing land to build on)
+	//administrative lag (depending on race and government type)
+	//title screen with capital ship orbiting planet
 	private PlanetEntity planetEntity;
 	
 	private String planetName;
@@ -34,10 +40,6 @@ public class Planet {
 	public Planet(String planetName, PlanetType planetType) {
 		this.planetName = planetName;
 		this.planetType = planetType;
-		fleetIndicator = new FleetIndicator(posX, posY);
-		fleetIndicator.init();
-		tooltip = new Tooltip(planetName);
-		tooltip.init();
 	}
 	//TO DO LIST
 	//
@@ -138,22 +140,28 @@ public class Planet {
 		return tooltip;
 	}
 
+	public FleetIndicator getFleetIndicator() {
+		return fleetIndicator;
+	}
+
 	public void populationGrowth() {
 		if(planetOwner != null) {
 			
 		}
 	}
 	public void init() {
-		tooltip = new Tooltip("Test");
+		tooltip = new Tooltip(planetName);
 		tooltip.init();
-		fleetIndicator = new FleetIndicator(0, 0);
-		fleetIndicator.init();
+		if(fleetDocked) {
+			fleetIndicator = new FleetIndicator(0, 0);
+			fleetIndicator.init();
+		}
 	}
 	
 	public void render() {
 		planetEntity.render();
 		if(fleetDocked) {
-			fleetIndicator.render();
+			//fleetIndicator.render();
 		}
 		if(planetEntity.isHovered()) {
 			tooltip.setPosition(Gdx.input.getX() + 20, Gdx.graphics.getHeight() - Gdx.input.getY());
@@ -176,12 +184,16 @@ public class Planet {
 	
 	public void dispose() {
 		System.out.println("Planet graphics destroyed.");
+		setFocus(false);
 		planetEntity.dispose();
 		planetEntity = null;
 		setGraphicsInitialised(false);
 		tooltip.dispose();
 		tooltip = null;
-		fleetIndicator = null;
+		if(fleetIndicator != null) {
+			fleetIndicator.dispose();
+			fleetIndicator = null;
+		}
 	}
 
 	public boolean getFocus() {

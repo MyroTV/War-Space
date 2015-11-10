@@ -74,9 +74,6 @@ public class StarSystem {
 	}
 	
 	public void setFocus(boolean focus) {
-		for(int i = 0; i < planets.size(); i++) {
-			planets.get(i).init();
-		}
 		this.inFocus = focus;
 	}
 	
@@ -152,6 +149,7 @@ public class StarSystem {
 	}
 
 	public void dispose() {
+		//star systems aren't being disposed when entering planet view but their graphics are being intialised again when leaving planet view
 		System.out.print("Star System graphics destroyed \n");
 		starSystemEntity.dispose();
 		starSystemEntity = null;
@@ -167,6 +165,7 @@ public class StarSystem {
 			for(int i = 0; i < planets.size(); i++) {
 				if(planets.get(i).isGraphicsInitialised() == false) {
 					planets.get(i).initialiseGraphics();
+					planets.get(i).init();
 				}
 			}
 			this.parentGalaxy.setChildStarFocused(true);

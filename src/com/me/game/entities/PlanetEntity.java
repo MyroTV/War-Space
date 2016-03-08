@@ -3,6 +3,8 @@ package com.me.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Json;
+import com.me.game.Planet;
 import com.me.screens.GameScreen;
 
 public class PlanetEntity extends Entity {

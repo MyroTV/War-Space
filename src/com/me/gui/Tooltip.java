@@ -1,14 +1,10 @@
 package com.me.gui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.game.TextureLoader;
 import com.me.interfaces.GUIElement;
-import com.me.renderers.GUIRenderer;
-import com.me.screens.GameScreen;
 
 public class Tooltip implements GUIElement {
 

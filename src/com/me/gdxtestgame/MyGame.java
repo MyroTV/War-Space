@@ -1,6 +1,7 @@
 package com.me.gdxtestgame;
 
 import com.badlogic.gdx.Game;
+import com.me.game.TextureLoader;
 import com.me.screens.GameScreen;
 import com.me.screens.MainMenuScreen;
 
@@ -8,9 +9,12 @@ public class MyGame extends Game {
 
 	MainMenuScreen mainMenuScreen;
 	private GameScreen gameScreen;
+	private TextureLoader textureLoader;
 	
 	@Override
 	public void create() {
+		textureLoader = new TextureLoader();
+		textureLoader.loadTextures();
 		mainMenuScreen = new MainMenuScreen(this);
 		setGameScreen(new GameScreen(this));
 		setScreen(mainMenuScreen);

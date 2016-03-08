@@ -1,5 +1,4 @@
 package com.me.gui;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.me.interfaces.GUIElement;
 

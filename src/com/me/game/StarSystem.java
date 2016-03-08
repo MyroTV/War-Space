@@ -2,18 +2,16 @@ package com.me.game;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.cedarsoftware.util.io.JsonWriter;
 import com.me.game.entities.StarSystemEntity;
-import com.me.renderers.Renderer;
+import com.me.gui.FleetIndicator;
 import com.me.screens.GameScreen;
 
 public class StarSystem {
 	
 	private StarSystemEntity starSystemEntity;
+	
+	private StarSystemShell starSystemShell;
 	
 	private Galaxy parentGalaxy;
 	private String systemName;
@@ -25,6 +23,8 @@ public class StarSystem {
 	private StarType starType;
 	private int posX,posY;
 	
+	private FleetIndicator fleetIndicator;
+	
 	public StarSystem(String systemName, int numberOfPlanets, StarType starType) {
 		this.systemName = systemName;
 		this.numberOfPlanets = numberOfPlanets;
@@ -34,7 +34,6 @@ public class StarSystem {
 	public void generatePlanets() {
 		for(int i = 0; i < numberOfPlanets; i++) {
 			planets.add(new Planet(Universe.getRandomPlanetName(), new PlanetType("metallic")));
-			
 			//Universe.removePlanetNameFromArray(planets.get(i).getPlanetName());
 			planets.get(i).setParentStar(this);
 			if(i == 0) {
@@ -59,6 +58,72 @@ public class StarSystem {
 	
 	public void removePlanet() {
 		
+	}
+	
+	public void render() {
+		if(this.getFocus() == true) {
+			for(int i = 0; i < planets.size(); i++) {
+				planets.get(i).render();
+			}
+		}
+		starSystemEntity.render();
+	}
+	public void lookAt() {
+		GameScreen.getCamera().translate(GameScreen.getScreenX() * -1 + posX, GameScreen.getScreenY() * -1 + posY);
+	}
+	
+	public void update() {
+		starSystemEntity.update();
+		checkClick();
+		if(this.inFocus == true && this.childPlanetsGenerated == true) {
+			for(int i = 0; i < planets.size(); i++) {
+				planets.get(i).update();
+			}
+		}
+
+	}
+
+	public void dispose() {
+		//star systems aren't being disposed when entering planet view but their graphics are being intialised again when leaving planet view
+		//check if this is still happening
+		System.out.print("Star System graphics destroyed \n");
+		starSystemEntity.dispose();
+		starSystemEntity = null;
+		setGraphicsInitialised(false);
+	}
+	
+	public void save() {
+		ArrayList<PlanetShell> tmp = new ArrayList<PlanetShell>();
+		String json;
+		for(int i = 0; i < planets.size(); i++) {
+			tmp.add(planets.get(i).getPlanetShell());
+		}
+		starSystemShell = new StarSystemShell(this.systemName);
+		starSystemShell.setPlanets(tmp);
+		json = JsonWriter.objectToJson(starSystemShell);
+		System.out.print(JsonWriter.formatJson(json));
+	}
+	
+	void checkClick() {
+		if(starSystemEntity.isClicked() == true) {
+			if(this.childPlanetsGenerated == false) {
+				this.generatePlanets();
+			}
+			this.parentGalaxy.setFocus(false);
+			for(int i = 0; i < planets.size(); i++) {
+				if(planets.get(i).isGraphicsInitialised() == false) {
+					planets.get(i).initialiseGraphics();
+					planets.get(i).init();
+				}
+			}
+			this.parentGalaxy.setChildStarFocused(true);
+			this.setFocus(true);
+		}
+	}
+	
+	public void initialiseGraphics() {
+		starSystemEntity = new StarSystemEntity(starType.getStarTexture("yellowStar"), this.systemName, this.posX, this.posY);
+		setGraphicsInitialised(true);
 	}
 	
 	public void setParentGalaxy(Galaxy parentGalaxy) {
@@ -113,68 +178,11 @@ public class StarSystem {
 		this.childPlanetsGenerated = areChildPlanetsGenerated;
 	}
 	
-	public void show() {
-		initialiseGraphics();
-	}
-	
-	public void render() {
-		if(this.getFocus() == true) {
-			for(int i = 0; i < planets.size(); i++) {
-				planets.get(i).render();
-			}
-		}
-		
-		starSystemEntity.render();
-	}
-	public void lookAt() {
-		GameScreen.getCamera().translate(GameScreen.getScreenX() * -1 + posX, GameScreen.getScreenY() * -1 + posY);
-	}
-	
-	public void update() {
-		starSystemEntity.update();
-		checkClick();
-		if(this.inFocus == true && this.childPlanetsGenerated == true) {
-			for(int i = 0; i < planets.size(); i++) {
-				planets.get(i).update();
-			}
-		}
-
-	}
 	public boolean isGraphicsInitialised() {
 		return graphicsInitialised;
 	}
 
 	public void setGraphicsInitialised(boolean graphicsInitialised) {
 		this.graphicsInitialised = graphicsInitialised;
-	}
-
-	public void dispose() {
-		//star systems aren't being disposed when entering planet view but their graphics are being intialised again when leaving planet view
-		System.out.print("Star System graphics destroyed \n");
-		starSystemEntity.dispose();
-		starSystemEntity = null;
-		setGraphicsInitialised(false);
-	}
-	
-	void checkClick() {
-		if(starSystemEntity.isClicked() == true) {
-			if(this.childPlanetsGenerated == false) {
-				this.generatePlanets();
-			}
-			this.parentGalaxy.setFocus(false);
-			for(int i = 0; i < planets.size(); i++) {
-				if(planets.get(i).isGraphicsInitialised() == false) {
-					planets.get(i).initialiseGraphics();
-					planets.get(i).init();
-				}
-			}
-			this.parentGalaxy.setChildStarFocused(true);
-			this.setFocus(true);
-		}
-	}
-	
-	public void initialiseGraphics() {
-		starSystemEntity = new StarSystemEntity(TextureLoader.getYellowStar(), this.systemName, this.posX, this.posY);
-		setGraphicsInitialised(true);
 	}
 }

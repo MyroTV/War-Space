@@ -2,19 +2,14 @@ package com.me.renderers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.me.game.Planet;
-import com.me.game.TextureLoader;
 import com.me.game.Universe;
 import com.me.screens.GameScreen;
 
 public class UniverseRenderer {
 	
 	private static Universe universe;
-	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private TextureLoader textureLoader;
 	long backcd1 = 0, backcd2 = 0;
 	
 	public UniverseRenderer() {
@@ -30,8 +25,7 @@ public class UniverseRenderer {
 	}
 	
 	public void show() {
-		textureLoader = new TextureLoader();
-		textureLoader.loadTextures();
+
 		universe = new Universe(9);
 		universe.show();
 		batch = new SpriteBatch();

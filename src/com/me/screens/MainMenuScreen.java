@@ -5,26 +5,21 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.me.ai.AStarGrid;
+import com.me.game.TextureLoader;
 import com.me.gdxtestgame.MyGame;
 import com.me.gui.DebugOverlay;
 import com.me.gui.TextBox;
-import com.me.utils.KeyListener;
 
 public class MainMenuScreen implements Screen {
 
-	private Texture mainMenuScreenTexture;
-	private Texture startButtonTexture;
 	private Sprite startButtonSprite;
 	private Sprite mainMenuScreenSprite;
-	private SpriteBatch batch, batch2;
+	private SpriteBatch batch;
 	MyGame game;
 	private TextBox tb;
 	private DebugOverlay dbOverlay;
-	private AStarGrid ASGrid;
 
 	public MainMenuScreen(MyGame game) {
 		this.game = game;
@@ -35,7 +30,7 @@ public class MainMenuScreen implements Screen {
 		update();
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-			mainMenuScreenSprite.draw(batch);
+			//mainMenuScreenSprite.draw(batch);
 			startButtonSprite.draw(batch);
 			//tb.drawSprite(batch);
 			//ASGrid.render();
@@ -69,49 +64,36 @@ public class MainMenuScreen implements Screen {
 	              true
 		);
 		
-		Texture.setEnforcePotImages(false); //Do not put anything before this
+		Texture.setEnforcePotImages(false); //Do not put anything before this, allows non perfect square Textures
 		
 		batch = new SpriteBatch();
-		batch2 = new SpriteBatch();
-		
-		ASGrid = new AStarGrid(5,5);
-		ASGrid.show();
-		ASGrid.setBatch(batch);
 		
 		tb = new TextBox(true);
 		tb.show();
 		dbOverlay = new DebugOverlay();
 		dbOverlay.show();
 		
-		mainMenuScreenTexture = new Texture(Gdx.files.internal("assets/newBG.png"));
-		startButtonTexture = new Texture(Gdx.files.internal("assets/startButton.png"));
-		mainMenuScreenTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		startButtonTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		mainMenuScreenSprite = new Sprite(mainMenuScreenTexture);
-		startButtonSprite = new Sprite(startButtonTexture);
+		mainMenuScreenSprite = new Sprite(TextureLoader.getMainMenuScreen());
+		startButtonSprite = new Sprite(TextureLoader.getStartButton());
 		mainMenuScreenSprite.setPosition(0, 0);
 		startButtonSprite.setPosition(50, 300);
 		mainMenuScreenSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());	
 	}
 
-	@Override
 	public void hide() {
 	
 	}
 
-	@Override
 	public void pause() {
 	
 	}
 
-	@Override
 	public void resume() {
 	
 	}
 
-	@Override
 	public void dispose() {
-		this.dispose();
+		
 	}
 
 }

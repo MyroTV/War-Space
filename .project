@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>main</name>
+			<type>2</type>
+			<location>C:/Users/michael/Downloads/json-io-master/json-io-master/src/main</location>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -1,7 +1,5 @@
 package com.me.utils;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.me.gui.TextBox;

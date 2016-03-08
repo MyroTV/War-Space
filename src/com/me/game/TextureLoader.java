@@ -16,6 +16,9 @@ public class TextureLoader {
 	private static Texture exitButton;
 	private static Texture buildingButton;
 	
+	private static Texture mainMenuScreen; //Main menu screen textures
+	private static Texture startButton;
+	
 	public void loadTextures() {
 		setMetallicPlanet(new Texture(Gdx.files.internal("assets/metallic.png")));
 		setYellowStar(new Texture(Gdx.files.internal("assets/yellowStar.png")));
@@ -24,6 +27,8 @@ public class TextureLoader {
 		setTooltip(new Texture(Gdx.files.internal("assets/ninePatchTooltip.png")));
 		setExitButton(new Texture("assets/exitButton.png"));
 		setBuildingButton(new Texture("assets/buildingButton.png"));
+		setMainMenuScreen(new Texture("assets/newBG.png"));
+		setStartButton(new Texture("assets/startButton.png"));
 	}
 	public static Texture getMetallicPlanet() {
 		return metallicPlanet;
@@ -66,5 +71,17 @@ public class TextureLoader {
 	}
 	public static void setBuildingButton(Texture buildingButton) {
 		TextureLoader.buildingButton = buildingButton;
+	}
+	public static Texture getMainMenuScreen() {
+		return mainMenuScreen;
+	}
+	public static void setMainMenuScreen(Texture mainMenuScreen) {
+		TextureLoader.mainMenuScreen = mainMenuScreen;
+	}
+	public static Texture getStartButton() {
+		return startButton;
+	}
+	public static void setStartButton(Texture startButton) {
+		TextureLoader.startButton = startButton;
 	}
 }

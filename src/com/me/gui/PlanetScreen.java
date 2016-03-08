@@ -5,11 +5,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.game.Planet;
-import com.me.game.PlanetType;
-import com.me.game.structures.CapitalStructure;
 import com.me.interfaces.GUIElement;
 import com.me.renderers.GUIRenderer;
-import com.me.screens.GameScreen;
 
 public class PlanetScreen implements GUIElement {
 	private Texture planetScreenTexture;

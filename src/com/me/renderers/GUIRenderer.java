@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.gui.PlanetScreen;
-import com.me.screens.GameScreen;
 
 public class GUIRenderer {
 	private PlanetScreen planetScreen;

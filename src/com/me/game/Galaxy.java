@@ -7,15 +7,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.me.game.entities.GalaxyEntity;
 import com.me.screens.GameScreen;
 import com.me.utils.RandomInt;
 
 public class Galaxy {
+	//have a different save file for each galaxy? or galaxy cluster?
 	private GalaxyEntity galaxyEntity;
 
 	private ArrayList<StarSystem> starSystems = new ArrayList<StarSystem>();
@@ -60,7 +57,7 @@ public class Galaxy {
 	public void generateStarSystems() {
 		for(int i = 0; i < this.numberOfSystems; i++) {
 			starSystems.add(new StarSystem("System " + i, RandomInt.newRandom(10), new StarType("yellowStar")));
-			starSystems.get(i).show();
+			starSystems.get(i).initialiseGraphics();
 			starSystems.get(i).setParentGalaxy(this);
 		}
 	}
